@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/title_home" />
+        <item
+            android:id="@+id/navigation_favourite"
+            android:icon="@drawable/ic_fav"
+            android:title="@string/title_favourite" />
+        <item
+            android:id="@+id/navigation_search"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search" />
+        <item
+            android:id="@+id/navigation_profile"
+            android:icon="@drawable/ic_person"
+            android:title="@string/title_profile" />
+    </group>
+
+
+</menu>
