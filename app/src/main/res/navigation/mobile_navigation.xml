@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.foodplanner.Home.View.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.foodplanner.Profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_favourite"
+        android:name="com.example.foodplanner.Favourite.FavouriteFragment"
+        android:label="@string/title_favourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.foodplanner.Search.main.View.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_searchByFragment"
+            app:destination="@id/searchByFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByFragment"
+        android:name="com.example.foodplanner.Search.Searchby.View.SearchByFragment"
+        tools:layout="@layout/fragment_searchby" >
+        <argument
+            android:name="Type"
+            app:argType="com.example.foodplanner.Model.TypeSearch" />
+        <action
+            android:id="@+id/action_searchByFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.foodplanner.Details.View.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="ID"
+            app:argType="string" />
+    </fragment>
+</navigation>

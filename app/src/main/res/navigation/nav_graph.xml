@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.foodplanner.Authorization.Welcome.WelcomeFragment">
+        <action
+            android:id="@+id/action_welcomeFragment_to_signinFragment"
+            app:destination="@id/signinFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.foodplanner.Authorization.Signin.View.SigninFragment"
+        tools:layout="@layout/fragment_signin" >
+        <action
+            android:id="@+id/action_signinFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.foodplanner.Authorization.SignUp.View.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.foodplanner.MainActivity"
+        android:label="MainActivity" />
+</navigation>
