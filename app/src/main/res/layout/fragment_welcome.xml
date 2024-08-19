@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Authorization.AuthorizActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="349dp"
+        android:background="#6BFFFFFF"
+        android:backgroundTint="#C6FFFFFF"
+        app:cardBackgroundColor="#FDFFFFFF"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+        <Button
+            android:id="@+id/btnguest"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/skip"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:cornerRadius="15dp" />
+
+        <Button
+            android:id="@+id/btnNormalSign"
+            android:layout_width="300dp"
+            android:layout_height="61dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="#070000"
+            android:text="@string/signup"
+            android:textColor="#FFFCFC"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:cornerRadius="15dp" />
+
+        <Button
+            android:id="@+id/btnToLogin"
+            android:layout_width="300dp"
+            android:layout_height="61dp"
+            android:layout_gravity="center|top"
+            android:layout_margin="30dp"
+            android:backgroundTint="#040000"
+            android:text="@string/logi"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:cornerRadius="15dp"
+            />
+
+        <ImageButton
+            android:id="@+id/btnGoogleSign"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="100dp"
+            android:backgroundTint="#00011407"
+            android:elevation="20dp"
+            app:cornerRadius="10dp"
+            app:srcCompat="@drawable/ic_google" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="310dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_new" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="28dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#B0000000"
+        android:fontFamily="@font/aclonica"
+        android:gravity="center"
+        android:text="@string/myfoodplan"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        tools:layout_editor_absoluteX="61dp" />
+
+
+    <!--    <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--        android:id="@+id/circularImageView"-->
+    <!--        android:layout_width="74dp"-->
+    <!--        android:layout_height="79dp"-->
+    <!--        android:src="@drawable/ic_google"-->
+    <!--        app:civ_border_color="#FFFFFF"-->
+    <!--        app:civ_border_width="2dp"-->
+    <!--        app:civ_fill_color="#D9D7D7"-->
+    <!--        tools:layout_editor_absoluteX="151dp"-->
+    <!--        tools:layout_editor_absoluteY="586dp">-->
+
+    <!--    </de.hdodenhof.circleimageview.CircleImageView>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
