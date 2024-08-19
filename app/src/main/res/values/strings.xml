@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MY FOOD</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="search">Search</string>
+    <string name="hello_blank_fragment">H I</string>
+    <string name="login"><u>Login</u></string>
+    <string name="signupwithemail">Sign Up With Email</string>
+    <string name="oruse">ـــــــــــــــ          or use social sign up          ـــــــــــــــ</string>
+    <string name="withgoogle">Continue With Google</string>
+    <string name="withface">Continue With Facebook</string>
+    <string name="haveaccount">Already have account?</string>
+    <string name="withtwitter">Continue with Twitter</string>
+    <string name="logi">Log in</string>
+    <string name="msglogin">Welcome back you\'re just a tap away from somthing delicious.</string>
+    <string name="signup">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="myfoodplan">My Food Planner</string>
+    <string name="skip">Skip</string>
+    <string name="arae">Country</string>
+    <string name="category">Category</string>
+    <string name="Ingredient">Ingredients</string>
+    <string name="SearchBy">Search By</string>
+    <string name="searchbycountry">Search by Country</string>
+    <string name="instractions">Instractions</string>
+    <string name="dailyinspiration">Daily Inspiration</string>
+    <string name="youmightlike">You MIGHT Like</string>
+    <!-- Strings used for fragments for navigation -->
+
+
+</resources>
