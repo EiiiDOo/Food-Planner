@@ -23,12 +23,13 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
         repo.fetchRandomMeals(this);
         repo.fetchCategories(this);
         repo.fetchMealsByName(getRandomLowercaseLetter(), this);
+
     }
 
     @Override
     public void onSuccessMeals(List<Meal> Meals) {
         if(Meals == null)
-            homeView.showErrorMsg("No Data Found");
+            homeView.showErrorMsg("No Meal Found");
         else
             homeView.showMeal(Meals);
     }
