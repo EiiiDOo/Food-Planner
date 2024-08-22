@@ -13,6 +13,7 @@ public interface ReposateryInterface {
     void fetchMealsByCategory(String category,MealsCallBack mealsCallBack);
     void fetchMealsByCountry(String country,MealsCallBack mealsCallBack);
     void fetchMealsByIngredient(String ingredient, MealsCallBack mealsCallBack);
+    void fetchMealsByName(String name, MealsCallBack mealsCallBack);
     public void fetchCategories(CategoryCallback categoryCallback);
     public void fetchIngredients(IngredientCallback ingredientCallback);
     public  void signin(String email,String password, FireBaseCallback fireBaseCallback);

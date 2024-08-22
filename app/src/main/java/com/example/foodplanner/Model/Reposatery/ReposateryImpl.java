@@ -5,20 +5,22 @@ import com.example.foodplanner.FireBase.FireBaseRemoteDatasource;
 import com.example.foodplanner.Network.IngredientCallback;
 import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
 import com.example.foodplanner.Network.MealsCallBack;
-import com.example.foodplanner.Network.RemoteDataSource;
+import com.example.foodplanner.Network.Base.RemoteDataSource;
 import com.example.foodplanner.Network.CategoryCallback;
 
 public class ReposateryImpl implements ReposateryInterface {
     private static ReposateryImpl instance = null;
     private RemoteDataSource remoteDataSource;
     FireBaseRemoteDatasource fireBase;
-    private ReposateryImpl(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase){
+
+    private ReposateryImpl(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase) {
         this.remoteDataSource = remoteDataSource;
         this.fireBase = fireBase;
     }
-    public static ReposateryImpl getInstance(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase){
-        if(instance == null ){
-            instance = new ReposateryImpl(remoteDataSource,fireBase);
+
+    public static ReposateryImpl getInstance(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase) {
+        if (instance == null) {
+            instance = new ReposateryImpl(remoteDataSource, fireBase);
 
         }
         return instance;
@@ -26,7 +28,7 @@ public class ReposateryImpl implements ReposateryInterface {
 
     @Override
     public void fetchMealsByFirstLetter(String ch, MealsByFierstLetterCallBack mealsCallBack) {
-        remoteDataSource.makeMealByFirstLetter(mealsCallBack,ch);
+        remoteDataSource.makeMealByFirstLetter(mealsCallBack, ch);
     }
 
     @Override
@@ -36,22 +38,27 @@ public class ReposateryImpl implements ReposateryInterface {
 
     @Override
     public void fetchMealsById(String id, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByIdCall(mealsCallBack,id);
+        remoteDataSource.makeMealsByIdCall(mealsCallBack, id);
     }
 
     @Override
     public void fetchMealsByCategory(String category, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByCategoryCall(mealsCallBack,category);
+        remoteDataSource.makeMealsByCategoryCall(mealsCallBack, category);
     }
 
     @Override
     public void fetchMealsByCountry(String country, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByCountryCall(mealsCallBack,country);
+        remoteDataSource.makeMealsByCountryCall(mealsCallBack, country);
     }
 
     @Override
     public void fetchMealsByIngredient(String ingredient, MealsCallBack mealsCallBack) {
-remoteDataSource.makeMealsByIngredientCall(mealsCallBack,ingredient);
+        remoteDataSource.makeMealsByIngredientCall(mealsCallBack, ingredient);
+    }
+
+    @Override
+    public void fetchMealsByName(String name, MealsCallBack mealsCallBack) {
+        remoteDataSource.makeMealByNameCall(mealsCallBack, name);
     }
 
     @Override
@@ -66,12 +73,12 @@ remoteDataSource.makeMealsByIngredientCall(mealsCallBack,ingredient);
 
     @Override
     public void signin(String email, String password, FireBaseCallback fireBaseCallback) {
-        fireBase.signin(email,password,fireBaseCallback);
+        fireBase.signin(email, password, fireBaseCallback);
     }
 
     @Override
     public void signUp(String email, String password, FireBaseCallback fireBaseCallback) {
-        fireBase.signUp(email,password,fireBaseCallback);
+        fireBase.signUp(email, password, fireBaseCallback);
     }
 
     @Override
