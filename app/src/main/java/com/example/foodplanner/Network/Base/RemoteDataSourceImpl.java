@@ -1,8 +1,12 @@
-package com.example.foodplanner.Network;
+package com.example.foodplanner.Network.Base;
 
 import com.example.foodplanner.Model.Categoryresponse;
 import com.example.foodplanner.Model.IngredientResponse;
 import com.example.foodplanner.Model.MealsResponse;
+import com.example.foodplanner.Network.CategoryCallback;
+import com.example.foodplanner.Network.IngredientCallback;
+import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
+import com.example.foodplanner.Network.MealsCallBack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,7 +87,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
 
     @Override
     public void makeMealByFirstLetter(MealsByFierstLetterCallBack networkCallback, String ch) {
-        interfaceRetrofit.getMealByFirstLetter("c").enqueue(new Callback<MealsResponse>() {
+        interfaceRetrofit.getMealByFirstLetter(ch).enqueue(new Callback<MealsResponse>() {
 
             @Override
             public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
@@ -166,6 +170,25 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     public void makeMealsByIdCall(MealsCallBack mealsCallBack, String id) {
         interfaceRetrofit.getMealById(id).enqueue(new Callback<MealsResponse>() {
 
+            @Override
+            public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
+
+                if (response.isSuccessful()) {
+                    mealsCallBack.onSuccessMeals(response.body().getMeals());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealsResponse> call, Throwable t) {
+
+                mealsCallBack.onFailureMeals(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void makeMealByNameCall(MealsCallBack mealsCallBack, String name) {
+        interfaceRetrofit.getMealByNmae(name).enqueue(new Callback<MealsResponse>() {
             @Override
             public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
 

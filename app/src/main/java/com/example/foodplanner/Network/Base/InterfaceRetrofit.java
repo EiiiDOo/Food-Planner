@@ -1,4 +1,4 @@
-package com.example.foodplanner.Network;
+package com.example.foodplanner.Network.Base;
 
 import com.example.foodplanner.Model.Categoryresponse;
 import com.example.foodplanner.Model.IngredientResponse;
@@ -23,6 +23,8 @@ public interface InterfaceRetrofit {
     Call<MealsResponse> getMealById(@Query("i") String category);
     @GET("search.php")
     Call<MealsResponse> getMealByFirstLetter(@Query("f") String ch);
+    @GET("search.php")
+    Call<MealsResponse> getMealByNmae(@Query("s") String c);
     @GET("random.php")
     Call<MealsResponse> getRandomMeals();
 }
