@@ -18,7 +18,7 @@ import com.example.foodplanner.Authorization.Signin.Presenter.SigninPresenterImp
 import com.example.foodplanner.Authorization.Signin.Presenter.SigninPresenterInterface;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
-import com.example.foodplanner.Network.RemoteDataSourceImpl;
+import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
 
