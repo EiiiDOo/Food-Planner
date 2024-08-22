@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
-    id ("androidx.navigation.safeargs")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -45,10 +45,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.squareup.retrofit2:retrofit:2.4.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.4.0")
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
-    implementation ("com.airbnb.android:lottie:3.7.0")
+    implementation(libs.circleimageview)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.lottie)
+    implementation (libs.adapter.rxjava3)
+    implementation (libs.rxandroid)
+    implementation(libs.rxjava3.retrofit.adapter)
+    implementation(libs.room.rxjava3)
 }

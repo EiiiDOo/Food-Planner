@@ -23,11 +23,12 @@
     <string name="arae">Country</string>
     <string name="category">Category</string>
     <string name="Ingredient">Ingredients</string>
-    <string name="SearchBy">Search By</string>
+    <string name="SearchBy">Search By </string>
     <string name="searchbycountry">Search by Country</string>
     <string name="instractions">Instractions</string>
     <string name="dailyinspiration">Daily Inspiration</string>
     <string name="youmightlike">You MIGHT Like</string>
+    <string name="meal">Meal</string>
     <!-- Strings used for fragments for navigation -->
 
 

@@ -9,7 +9,18 @@
         android:id="@+id/navigation_home"
         android:name="com.example.foodplanner.Home.View.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchByFragment"
+            app:destination="@id/searchByFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -29,7 +40,9 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_navigation_search_to_searchByFragment"
-            app:destination="@id/searchByFragment" />
+            app:destination="@id/searchByFragment"
+            app:popUpTo="@id/navigation_search"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchByFragment"
@@ -40,7 +53,9 @@
             app:argType="com.example.foodplanner.Model.TypeSearch" />
         <action
             android:id="@+id/action_searchByFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/searchByFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
