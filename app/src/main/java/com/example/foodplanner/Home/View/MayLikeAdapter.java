@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Search.Searchby.View.SearchByFragmentDirections;
 
 import java.util.List;
 
@@ -42,8 +43,12 @@ public class MayLikeAdapter extends RecyclerView.Adapter<MayLikeAdapter.MealView
     @Override
     public void onBindViewHolder(@NonNull MealView holder, int position) {
     holder.name.setText(Meal.get(position).getStrMeal());
-    Glide.with(context).load(Meal.get(position).getStrMealThumb()).placeholder(R.drawable.foodplaceholder).override(190,160).into(holder.image);
-
+    Glide.with(context).load(Meal.get(position).getStrMealThumb()).override(190,160).into(holder.image);
+    holder.button.setOnClickListener(v -> {
+        HomeFragmentDirections.ActionNavigationHomeToDetailsFragment action =
+                HomeFragmentDirections.actionNavigationHomeToDetailsFragment(Meal.get(position).getIdMeal());
+        Navigation.findNavController(holder.itemView).navigate(action);
+    });
     }
 
     public void updatedata(List<Meal> Meal) {
@@ -59,12 +64,12 @@ public class MayLikeAdapter extends RecyclerView.Adapter<MayLikeAdapter.MealView
     public class MealView extends RecyclerView.ViewHolder {
         TextView name;
         ImageView image;
-
+        Button button;
         public MealView(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameOfDailyMeal);
             image = itemView.findViewById(R.id.imageDaily);
-
+            button = itemView.findViewById(R.id.btnfromMealByToDetails);
         }
     }
 }

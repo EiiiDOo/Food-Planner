@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,7 +47,13 @@ public class CountryAdapterNew extends RecyclerView.Adapter<CountryAdapterNew.Co
 
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
-        holder.title.setText(Country.get(position).getCountryName());
+        holder.button.setOnClickListener(v -> {
+            HomeFragmentDirections.ActionNavigationHomeToSearchByFragment action =
+                    HomeFragmentDirections.actionNavigationHomeToSearchByFragment(
+                            new TypeSearch(Country.get(position).getCountryName(), TypeSearch.Type.COUNTRIES)
+                    );
+            Navigation.findNavController(holder.itemView).navigate(action);
+        });
         Glide.with(context).load(Country.get(position).getImageResourceId()).into(holder.image);
 
     }
@@ -56,11 +64,13 @@ public class CountryAdapterNew extends RecyclerView.Adapter<CountryAdapterNew.Co
     }
 
     public class CountryViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
+
         ImageView image;
+        Button button;
+
         public CountryViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.nameOfCountry);
+            button = itemView.findViewById(R.id.btnTosearchBycountry);
             image = itemView.findViewById(R.id.circleImage);
 
         }

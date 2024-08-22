@@ -1,5 +1,7 @@
 package com.example.foodplanner.Home.Presenter;
 
+import android.util.Log;
+
 import com.example.foodplanner.Home.View.HomeView;
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meal;
@@ -11,7 +13,7 @@ import com.example.foodplanner.Network.MealsCallBack;
 import java.util.List;
 import java.util.Random;
 
-public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomePresenter, MealsByFierstLetterCallBack {
+public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomePresenter {
     ReposateryImpl repo;
     HomeView homeView;
 
@@ -20,12 +22,15 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
         this.repo = repo;
         repo.fetchRandomMeals(this);
         repo.fetchCategories(this);
-        repo.fetchMealsByFirstLetter(getRandomLowercaseLetter(),this);
+        repo.fetchMealsByName(getRandomLowercaseLetter(), this);
     }
 
     @Override
     public void onSuccessMeals(List<Meal> Meals) {
-        homeView.showMeal(Meals);
+        if(Meals == null)
+            homeView.showErrorMsg("No Data Found");
+        else
+            homeView.showMeal(Meals);
     }
 
     @Override
@@ -44,17 +49,10 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
         homeView.showErrorMsg(errorMsg);
     }
 
-    @Override
-    public void onSuccessMealsByFirstLetter(List<Meal> Meals) {
-        homeView.showMealByFirstLetter(Meals);
-    }
 
-    @Override
-    public void onFailureMealsByFirstLetter(String errorMsg) {
-        homeView.showErrorMsg(errorMsg);
-    }
+
     public String getRandomLowercaseLetter() {
         Random random = new Random();
-        return String.valueOf(random.nextInt(26) + 'a') ;  // 'a' to 'z'
+        return String.valueOf((char) (random.nextInt(26) + 'a'));
     }
 }
