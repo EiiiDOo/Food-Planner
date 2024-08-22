@@ -3,6 +3,7 @@ package com.example.foodplanner.Search.main.View;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment implements SearchInterfaceView {
+    final static String TAG = "SearchFragment";
 
     RecyclerView rvCountry, rvCategory, rvIngredient,rvMeal;
     CountryAdapter countryAdapter;
@@ -38,12 +40,6 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
     ProgressBar progressBar;
     TextView backGroundProgressBar;
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -102,6 +98,47 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
             backGroundProgressBar.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
         }, 1000);
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 
 }

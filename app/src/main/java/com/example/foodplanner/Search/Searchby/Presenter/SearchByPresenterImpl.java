@@ -61,9 +61,7 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                 searchByView.getTitle("Meals");
                 searchByView.withTyping()
                         .subscribe(
-                                (e) -> {reposatery.fetchMealsByName(e, this);},
-                                e -> {},
-                                () -> { }
+                                (e) -> {reposatery.fetchMealsByName(e, this);}
                         );
                 break;
         }
