@@ -5,9 +5,13 @@ import com.example.foodplanner.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+
 public class AllCountries {
     private static AllCountries AllCountries=null;
     private final List<Country> Countrys= new ArrayList();
+    private static final String TAG = "AllCountries";
 
     private AllCountries() {
         Countrys.add(new Country("American", R.drawable.america));
@@ -51,5 +55,12 @@ public class AllCountries {
     }
     public List<Country> getAllCountries() {
         return Countrys;
+    }
+
+    public Single<String>autoCompleteCountry(String query) {
+
+        return Observable.fromIterable(getInstance().getAllCountries())
+                .map(Country::getCountryName)
+                .filter(country -> country.toLowerCase().startsWith(query.toLowerCase())).first("null");
     }
 }

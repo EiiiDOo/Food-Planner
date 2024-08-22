@@ -7,17 +7,27 @@ import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
 import com.example.foodplanner.Network.MealsCallBack;
 
 public interface ReposateryInterface {
-    void fetchMealsByFirstLetter(String ch, MealsByFierstLetterCallBack mealsCallBack);
+
     void fetchRandomMeals(MealsCallBack mealsCallBack);
-    void fetchMealsById(String id,MealsCallBack mealsCallBack);
-    void fetchMealsByCategory(String category,MealsCallBack mealsCallBack);
-    void fetchMealsByCountry(String country,MealsCallBack mealsCallBack);
+
+    void fetchMealsById(String id, MealsCallBack mealsCallBack);
+
+    void fetchMealsByCategory(String category, MealsCallBack mealsCallBack);
+
+    void fetchMealsByCountry(String country, MealsCallBack mealsCallBack);
+
     void fetchMealsByIngredient(String ingredient, MealsCallBack mealsCallBack);
+
     void fetchMealsByName(String name, MealsCallBack mealsCallBack);
-    public void fetchCategories(CategoryCallback categoryCallback);
-    public void fetchIngredients(IngredientCallback ingredientCallback);
-    public  void signin(String email,String password, FireBaseCallback fireBaseCallback);
-    public  void signUp(String email, String password, FireBaseCallback fireBaseCallback);
-    public  void signOut(FireBaseCallback fireBaseCallback);
+
+    void fetchCategories(CategoryCallback categoryCallback);
+
+    void fetchIngredients(IngredientCallback ingredientCallback);
+
+    void signin(String email, String password, FireBaseCallback fireBaseCallback);
+
+    void signUp(String email, String password, FireBaseCallback fireBaseCallback);
+
+    void signOut(FireBaseCallback fireBaseCallback);
 
 }

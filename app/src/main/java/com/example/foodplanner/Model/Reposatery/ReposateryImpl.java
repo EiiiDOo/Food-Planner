@@ -27,11 +27,6 @@ public class ReposateryImpl implements ReposateryInterface {
     }
 
     @Override
-    public void fetchMealsByFirstLetter(String ch, MealsByFierstLetterCallBack mealsCallBack) {
-        remoteDataSource.makeMealByFirstLetter(mealsCallBack, ch);
-    }
-
-    @Override
     public void fetchRandomMeals(MealsCallBack mealsCallBack) {
         remoteDataSource.makeRandomMealsCall(mealsCallBack);
     }
