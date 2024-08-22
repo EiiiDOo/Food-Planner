@@ -6,12 +6,17 @@ public class TypeSearch implements Serializable {
     public enum Type{
         CATEGORIES,
         INGREDIENTS,
-        COUNTRIES
+        COUNTRIES,
+        MealsByNmae
     }
     String param;
     Type type;
     public TypeSearch(String param, Type type) {
         this.param = param;
+        this.type = type;
+    }
+
+    public TypeSearch(Type type) {
         this.type = type;
     }
 

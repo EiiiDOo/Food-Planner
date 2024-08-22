@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AllCountries {
     private static AllCountries AllCountries=null;
-    private List<Country> Countrys= new ArrayList<Country>();
+    private final List<Country> Countrys= new ArrayList();
 
     private AllCountries() {
         Countrys.add(new Country("American", R.drawable.america));
