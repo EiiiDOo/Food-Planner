@@ -36,9 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         progressBar = findViewById(R.id.progressBar);
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            progressBar.setVisibility(View.VISIBLE);
-        }, 1000);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> progressBar.setVisibility(View.VISIBLE), 1000);
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, AuthorizActivity.class));
             finish();

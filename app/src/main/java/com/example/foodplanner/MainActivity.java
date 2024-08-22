@@ -12,8 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-BottomNavigationView bottomNavigationView;
-    NavController  navController;
+    BottomNavigationView bottomNavigationView;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ BottomNavigationView bottomNavigationView;
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.gary));
 
         bottomNavigationView = findViewById(R.id.nav_view);
-        navController = Navigation.findNavController(this,R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 }
