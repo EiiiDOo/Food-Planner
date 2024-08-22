@@ -193,6 +193,9 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
             public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
 
                 if (response.isSuccessful()) {
+                    if(response.body().getMeals().size() <=10 ){
+                        makeMealByNameCall(mealsCallBack, "a");
+                    }
                     mealsCallBack.onSuccessMeals(response.body().getMeals());
                 }
             }
