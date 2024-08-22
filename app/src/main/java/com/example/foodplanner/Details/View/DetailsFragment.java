@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +29,7 @@ import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
-import com.example.foodplanner.Network.RemoteDataSourceImpl;
+import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Search.main.View.IngredientAdapter;
 
@@ -34,12 +37,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsFragment extends Fragment implements DetailsView {
-    boolean fav =true,calend =true;
+    boolean fav = true, calend = true;
     Button button;
-    ImageButton addToFav,addToPlan;
+    ProgressBar progressBar;
+    ImageButton addToFav, addToPlan;
     RecyclerView rvIngredients;
-    TextView instractions, category;
-    IngredientAdapter ingredientAdapter;
+    TextView instractions, category,backGroundProgressBar;
+    IngredientAdapterdetails ingredientAdapter;
     ImageView image, imageCountry;
     String id;
     WebView wv;
@@ -61,6 +65,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.progressBar2);
+        backGroundProgressBar = view.findViewById(R.id.backProgrespar);
         button = view.findViewById(R.id.nameMeal);
         rvIngredients = view.findViewById(R.id.recyclerView);
         instractions = view.findViewById(R.id.instractions);
@@ -68,26 +74,24 @@ public class DetailsFragment extends Fragment implements DetailsView {
         imageCountry = view.findViewById(R.id.imageCountry);
         addToFav = view.findViewById(R.id.addTofav);
         addToPlan = view.findViewById(R.id.addToPlan);
-        ingredientAdapter = new IngredientAdapter(new ArrayList<>(), getContext());
+        ingredientAdapter = new IngredientAdapterdetails(new ArrayList<>(), getContext());
         rvIngredients.setAdapter(ingredientAdapter);
         wv = view.findViewById(R.id.webView);
         image = view.findViewById(R.id.imageDaily);
         addToFav.setOnClickListener(v -> {
-            if(fav){
+            if (fav) {
                 addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
                 fav = !fav;
-            }
-            else {
+            } else {
                 addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favwhite));
                 fav = !fav;
             }
-                });
+        });
         addToPlan.setOnClickListener(v -> {
-            if(calend){
+            if (calend) {
                 addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
                 calend = !calend;
-            }
-            else {
+            } else {
                 addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addtocalend));
                 calend = !calend;
             }
@@ -98,13 +102,17 @@ public class DetailsFragment extends Fragment implements DetailsView {
 
     @Override
     public void showMeal(List<Meal> meal) {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            progressBar.setVisibility(View.INVISIBLE);
+            backGroundProgressBar.setVisibility(View.INVISIBLE);
+        }, 1500);
         button.setText(meal.get(0).getStrMeal());
         instractions.setText(meal.get(0).getStrInstructions());
         Log.d("TAG", "showMeal: " + meal.get(0).getStrMealThumb());
         category.setText(meal.get(0).getStrCategory());
         String s = meal.get(0).getStrArea();
         imageCountry.setImageResource(getResourceId(s));
-        Glide.with(getContext()).load(meal.get(0).getStrMealThumb()).placeholder(R.drawable.egypt).into(image);
+        Glide.with(getContext()).load(meal.get(0).getStrMealThumb()).placeholder(R.drawable.foodplaceholder).into(image);
         Log.d("TAG", "showMeal: " + meal.get(0).getIngredients());
         ingredientAdapter.updatedata(meal.get(0).getIngredients());
         if (meal.get(0).getStrYoutube() != null && meal.get(0).getStrYoutube().length() != 0) {
@@ -123,7 +131,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public void showErrorMsg(String error) {
 
     }
-@Override
+
+    @Override
     public int getResourceId(String name) {
         for (Country c : AllCountries.getInstance().getAllCountries()) {
             if (c.getCountryName().equals(name)) {
