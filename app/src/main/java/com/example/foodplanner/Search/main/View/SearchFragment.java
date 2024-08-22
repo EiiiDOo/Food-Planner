@@ -3,7 +3,6 @@ package com.example.foodplanner.Search.main.View;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment implements SearchInterfaceView {
-    final static String TAG = "SearchFragment";
-
-    RecyclerView rvCountry, rvCategory, rvIngredient,rvMeal;
+    public static List<Ingredients> ingredients = new ArrayList<>();
+    public static List<Categories> categories = new ArrayList<>();
+    RecyclerView rvCountry, rvCategory, rvIngredient, rvMeal;
     CountryAdapter countryAdapter;
     CategoryAdapter categoryAdapter;
     IngredientAdapter ingredientAdapter;
@@ -62,7 +61,7 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
         rvCountry.setAdapter(countryAdapter);
         rvIngredient.setAdapter(ingredientAdapter);
 
-        SearchPresenterImpl searchPresenter = new SearchPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
+        new SearchPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
     }
 
     @Override
@@ -83,11 +82,13 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
 
     @Override
     public void showCategory(List<Categories> categories) {
+        SearchFragment.categories = categories;
         categoryAdapter.updatedata(categories);
     }
 
     @Override
     public void showIngredient(List<Ingredients> ingredients) {
+        SearchFragment.ingredients = ingredients;
         ingredientAdapter.updatedata(ingredients);
     }
 
@@ -99,46 +100,6 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
             progressBar.setVisibility(View.INVISIBLE);
         }, 1000);
     }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
 
 }

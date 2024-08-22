@@ -32,7 +32,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =  LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.rowrandom,parent,false));
+        return new ViewHolder(inflater.inflate(R.layout.itemcountry,parent,false));
     }
     public void updatedata(List<Country> countryList) {
         this.countryList = countryList;
@@ -41,7 +41,6 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(countryList.get(position). getCountryName());
         holder.imageView.setImageResource(countryList.get(position).getImageResourceId());
         holder.button.setOnClickListener(v -> {
             SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
@@ -60,13 +59,11 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView title;
         Button button;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.name);
-            imageView = itemView.findViewById(R.id.imageDaily);
-            button = itemView.findViewById(R.id.button);
+            imageView = itemView.findViewById(R.id.circleImage);
+            button = itemView.findViewById(R.id.btnTosearchBycountry);
         }
     }
 }

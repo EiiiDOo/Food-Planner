@@ -17,8 +17,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageMealIntoSearch"
-            android:layout_width="93dp"
-            android:layout_height="73dp"
+            android:layout_width="112dp"
+            android:layout_height="99dp"
             android:adjustViewBounds="true"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
