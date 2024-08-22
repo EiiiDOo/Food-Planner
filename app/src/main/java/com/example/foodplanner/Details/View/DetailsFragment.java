@@ -5,9 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -19,7 +16,6 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,7 +30,6 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
-import com.example.foodplanner.Search.main.View.IngredientAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +37,7 @@ import java.util.List;
 public class DetailsFragment extends Fragment implements DetailsView {
     final String TAG = "DetailsFragment";
     boolean fav = true, calend = true;
-    Button button;
+    TextView button;
     ProgressBar progressBar;
     ImageButton addToFav, addToPlan;
     RecyclerView rvIngredients;
@@ -146,41 +141,5 @@ public class DetailsFragment extends Fragment implements DetailsView {
         return R.drawable.egypt;
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
 
 }

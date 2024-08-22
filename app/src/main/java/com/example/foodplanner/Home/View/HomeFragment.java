@@ -21,10 +21,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Categories;
@@ -69,6 +65,7 @@ public class HomeFragment extends Fragment implements HomeView {
         progressBar = view.findViewById(R.id.progressBar2);
         btnToDailsfromrandomMeal = view.findViewById(R.id.btnFromRandomMealToDetails);
         countryAdapterNew = new CountryAdapterNew(AllCountries.getInstance().getAllCountries(), getContext());
+
         categoryAdapterNew = new CategoryAdapterNew(new ArrayList<>(), getContext());
         mayLikeAdapter = new MayLikeAdapter(new ArrayList<>(), getContext());
         rvCountry.setAdapter(countryAdapterNew);
@@ -119,47 +116,6 @@ public class HomeFragment extends Fragment implements HomeView {
     public void showErrorMsg(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
 
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
     }
 
 }

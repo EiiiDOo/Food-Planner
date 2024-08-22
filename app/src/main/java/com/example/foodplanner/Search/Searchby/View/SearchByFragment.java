@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.Model.AllCountries;
+import com.example.foodplanner.Model.Country;
+import com.example.foodplanner.Model.Ingredients;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Model.TypeSearch;
@@ -27,6 +29,7 @@ import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Search.Searchby.Presenter.SearchByPresenter;
 import com.example.foodplanner.Search.Searchby.Presenter.SearchByPresenterImpl;
+import com.example.foodplanner.Search.main.View.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchByFragment extends Fragment implements SearchByView {
@@ -102,7 +106,7 @@ public class SearchByFragment extends Fragment implements SearchByView {
     }
 
     @Override
-    public Observable<String> withTyping() {
+    public Observable<String> withTypingMeal() {
         Observable<String> observable = Observable.create(emitter -> {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -117,51 +121,81 @@ public class SearchByFragment extends Fragment implements SearchByView {
                     return false;
                 }
             });
-
         });
         return observable
-                .subscribeOn(Schedulers.io())
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .map(e -> e.toLowerCase())
+                .debounce(650, TimeUnit.MILLISECONDS)
+                .map(String::toLowerCase)
                 .filter(e -> (e != null && !e.isEmpty()))
-                .distinctUntilChanged()
-                .observeOn(AndroidSchedulers.mainThread());
+                .distinctUntilChanged();
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
+    public Observable<String> withTypingCountry() {
+        Observable<String> observable = Observable.create(emitter -> {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    emitter.onNext(AllCountries.getInstance().autoCompleteCountry(newText).blockingGet());
+                    return false;
+                }
+            });
+        });
+        return observable
+                .debounce(650, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
+    public Observable<String> withTypingIngredient() {
+        Observable<String> observable = Observable.create(emitter -> {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    emitter.onNext(searchByPresenter.autoCompleteIngredient(newText).blockingGet());
+                    return false;
+                }
+            });
+        });
+        return observable
+                .debounce(650, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
+    public Observable<String> withTypingCategory() {
+        Observable<String> observable = Observable.create(emitter -> {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    emitter.onNext(searchByPresenter.autoCompleteCategory(newText).blockingGet());
+                    return false;
+                }
+            });
+        });
+        return observable
+                .debounce(650, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
 
 }

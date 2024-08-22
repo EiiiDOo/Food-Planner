@@ -24,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -39,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.574"
-            tools:visibility="visible" />
+            tools:visibility="invisible" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
@@ -112,28 +113,25 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <Button
+        <TextView
             android:id="@+id/nameMeal"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginTop="236dp"
-            android:backgroundTint="#63000000"
-            android:clickable="false"
+            android:background="#63000000"
             android:fontFamily="@font/candal"
-            android:text="Button"
-            android:textSize="24dp"
-            app:cornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageDaily"
+            app:layout_constraintEnd_toEndOf="@id/imageDaily"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageDaily" />
+            app:layout_constraintStart_toStartOf="@id/imageDaily" />
 
         <TextView
             android:id="@+id/instractions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="TextView"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
             app:layout_constraintHorizontal_bias="0.0"
