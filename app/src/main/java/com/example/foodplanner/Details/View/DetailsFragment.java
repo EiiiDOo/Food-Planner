@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsFragment extends Fragment implements DetailsView {
+    final String TAG = "DetailsFragment";
     boolean fav = true, calend = true;
     Button button;
     ProgressBar progressBar;
@@ -52,7 +56,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id = DetailsFragmentArgs.fromBundle(getArguments()).getID();
-        Log.d("TAG", "onCreate: " + id);
+        Log.d(TAG, "onCreate: " + id);
     }
 
     @Override
@@ -140,6 +144,43 @@ public class DetailsFragment extends Fragment implements DetailsView {
             }
         }
         return R.drawable.egypt;
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 
 }
