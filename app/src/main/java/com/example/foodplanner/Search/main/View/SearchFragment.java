@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
-import com.example.foodplanner.Home.View.CountryAdapterNew;
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Ingredients;

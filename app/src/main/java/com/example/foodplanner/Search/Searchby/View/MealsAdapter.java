@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.Home.View.HomeFragmentDirections;
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
@@ -33,7 +34,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =  LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.rowrandom,parent,false));
+        return new ViewHolder(inflater.inflate(R.layout.smallmeal,parent,false));
     }
 
     @Override
@@ -43,7 +44,6 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
         holder.button.setOnClickListener(v -> {
             SearchByFragmentDirections.ActionSearchByFragmentToDetailsFragment action =
                     SearchByFragmentDirections.actionSearchByFragmentToDetailsFragment(meals.get(position).getIdMeal());
-
             Navigation.findNavController(holder.itemView).navigate(action);
         });
     }
@@ -62,9 +62,10 @@ public void updatedata(List<Meal> meals) {
         Button button;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.name);
+            title = itemView.findViewById(R.id.nameOfDailyMeal);
             imageView = itemView.findViewById(R.id.imageDaily);
-            button = itemView.findViewById(R.id.button);
+            button = itemView.findViewById(R.id.btnfromMealByToDetails);
+
         }
     }
 }

@@ -8,10 +8,10 @@ import com.example.foodplanner.Model.Meal;
 import java.util.List;
 
 public interface SearchInterfaceView {
-    public void showCountry(List<Country> countryList);
-    public void showErrorMsg(String error);
-    public void showCategory(List<Categories> categories);
-    public void showIngredient(List<Ingredients> ingredients);
+     void showCountry(List<Country> countryList);
+     void showErrorMsg(String error);
+     void showCategory(List<Categories> categories);
+     void showIngredient(List<Ingredients> ingredients);
     void showMealsByName(List<Meal> Meals);
 
 }
