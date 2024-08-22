@@ -33,7 +33,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =  LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.rowrandom,parent,false));
+        return new ViewHolder(inflater.inflate(R.layout.rowcategoryoringredient,parent,false));
     }
 
     @Override
@@ -66,9 +66,10 @@ public void updatedata(List<Ingredients> ingredients) {
         Button button;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.name);
-            imageView = itemView.findViewById(R.id.imageDaily);
-            button = itemView.findViewById(R.id.button);
+            title = itemView.findViewById(R.id.nameOfCategory);
+            imageView = itemView.findViewById(R.id.circleImageOfCategory);
+            button = itemView.findViewById(R.id.button2);
+
         }
     }
 }
