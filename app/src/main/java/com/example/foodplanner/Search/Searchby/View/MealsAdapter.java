@@ -1,5 +1,6 @@
 package com.example.foodplanner.Search.Searchby.View;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +27,11 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
         this.meals = meals;
         this.context = context;
     }
-    public void setCategories(List<Categories> Categories) {
-        this.meals = meals;
-    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =  LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.smallmeal,parent,false));
+        return new ViewHolder(inflater.inflate(R.layout.smallmeal, parent, false));
     }
 
     @Override
@@ -42,10 +40,11 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
         Glide.with(context).load(meals.get(position).getStrMealThumb()).into(holder.imageView);
         holder.button.setOnClickListener(v -> {
             SearchByFragmentDirections.ActionSearchByFragmentToDetailsFragment action =
-                    SearchByFragmentDirections.actionSearchByFragmentToDetailsFragment(meals.get(position).getIdMeal());
+                    SearchByFragmentDirections.actionSearchByFragmentToDetailsFragment(meals.get(position).getIdMeal(),null);
             Navigation.findNavController(holder.itemView).navigate(action);
         });
     }
+@SuppressLint("NotifyDataSetChanged")
 public void updatedata(List<Meal> meals) {
     this.meals = meals;
     notifyDataSetChanged();
@@ -55,7 +54,7 @@ public void updatedata(List<Meal> meals) {
         return meals.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView title;
         Button button;

@@ -1,5 +1,9 @@
 package com.example.foodplanner.Search.Searchby.View;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +15,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -21,24 +29,23 @@ import android.widget.Toast;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
-import com.example.foodplanner.Model.Ingredients;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
+
 import com.example.foodplanner.R;
 import com.example.foodplanner.Search.Searchby.Presenter.SearchByPresenter;
 import com.example.foodplanner.Search.Searchby.Presenter.SearchByPresenterImpl;
-import com.example.foodplanner.Search.main.View.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public class SearchByFragment extends Fragment implements SearchByView {
     final static String TAG = "SearchByFragment";
@@ -60,12 +67,13 @@ public class SearchByFragment extends Fragment implements SearchByView {
         Log.d(TAG, "onCreate: ");
 
 
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         typeTitle = view.findViewById(R.id.typeOfSearch);
         progressBar = view.findViewById(R.id.progressBar2);
         backGroundProgressBar = view.findViewById(R.id.backProgrespar);
@@ -73,7 +81,7 @@ public class SearchByFragment extends Fragment implements SearchByView {
         searchView = view.findViewById(R.id.searchView);
         adapter = new MealsAdapter(new ArrayList<>(), view.getContext());
         searchView.clearFocus();
-        searchByPresenter = new SearchByPresenterImpl(typeSearch, ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
+        searchByPresenter = new SearchByPresenterImpl(typeSearch, ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
 
 
     }
@@ -163,6 +171,7 @@ public class SearchByFragment extends Fragment implements SearchByView {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
+
                     emitter.onNext(searchByPresenter.autoCompleteIngredient(newText).blockingGet());
                     return false;
                 }
@@ -196,6 +205,35 @@ public class SearchByFragment extends Fragment implements SearchByView {
     }
 
 
-
-
+//    @SuppressLint("NotifyDataSetChanged")
+//    private void filterSuggestions(String query) {
+//        List<String> filteredList = AllCountries.getInstance().getAllCountries().stream()
+//                .map(Country::getCountryName)
+//                .filter(e -> e.toLowerCase()
+//                .contains(query.toLowerCase()))
+//                .collect(Collectors.toList());
+//        // Update the ListView with the filtered suggestions
+//        arrayAdapter.clear();
+//        arrayAdapter.addAll(filteredList);
+//        adapter.notifyDataSetChanged();
+//    }
+//    private void hideKeyboard(View view) {
+//        InputMethodManager imm = (InputMethodManager) getSystemService(getContext(), InputMethodManager.class);
+//        if (imm != null) {
+//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
+//    void ignorefoucs() {
+//        getView().findViewById(R.id.searchByRoot).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (searchView.isFocused()) {
+//                    searchView.clearFocus();
+//                    hideKeyboard(v);
+//                }
+//                return false;
+//            }
+//        });
+//    }
 }
+

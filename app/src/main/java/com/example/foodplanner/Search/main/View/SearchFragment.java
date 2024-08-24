@@ -20,6 +20,7 @@ import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Ingredients;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
@@ -61,7 +62,7 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
         rvCountry.setAdapter(countryAdapter);
         rvIngredient.setAdapter(ingredientAdapter);
 
-        new SearchPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
+        new SearchPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
     }
 
     @Override

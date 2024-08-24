@@ -91,7 +91,12 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                 searchByView.withTypingMeal()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(e -> reposatery.fetchMealsByName(e, this));
+                        .subscribe(e -> {
+                            if (e.equals("null"))
+                                searchByView.showErrorMsg("No Meals Found");
+                            else
+                                reposatery.fetchMealsByName(e, this);
+                        });
                 break;
         }
     }
