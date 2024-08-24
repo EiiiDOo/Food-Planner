@@ -17,13 +17,14 @@ import android.widget.Toast;
 import com.example.foodplanner.Authorization.Signin.Presenter.SigninPresenterImpl;
 import com.example.foodplanner.Authorization.Signin.Presenter.SigninPresenterInterface;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SigninFragment extends Fragment implements  SigninView {
-    SigninPresenterInterface inPresenter = SigninPresenterImpl.getInstance(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(),FireBaseRemoteDatasourceImpl.getInstance()), this);
+    SigninPresenterInterface inPresenter = SigninPresenterImpl.getInstance(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(),FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
     TextInputEditText email,pass;
     Button btnLogin;
     NavController navController;

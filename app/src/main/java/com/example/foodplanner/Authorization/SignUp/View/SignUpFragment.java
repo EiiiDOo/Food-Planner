@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.foodplanner.Authorization.SignUp.Presenter.SignUpPresenterImpl;
 import com.example.foodplanner.Authorization.SignUp.Presenter.SignUpPresenterInterface;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
@@ -25,7 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class SignUpFragment extends Fragment implements SignUpView {
     NavController navController;
-    SignUpPresenterInterface upPresenter = SignUpPresenterImpl.getInstance(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
+    SignUpPresenterInterface upPresenter = SignUpPresenterImpl.getInstance(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
     TextInputEditText email, pass, confirmPass;
     Button signUp;
 
