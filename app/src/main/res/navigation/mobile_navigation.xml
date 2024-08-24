@@ -24,15 +24,20 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.foodplanner.Profile.ProfileFragment"
+        android:name="com.example.foodplanner.Profile.View.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_favourite"
-        android:name="com.example.foodplanner.Favourite.FavouriteFragment"
+        android:name="com.example.foodplanner.Favourite.View.FavouriteFragment"
         android:label="@string/title_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_navigation_favourite_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/navigation_favourite" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.foodplanner.Search.main.View.SearchFragment"
@@ -65,5 +70,9 @@
         <argument
             android:name="ID"
             app:argType="string" />
+        <argument
+            android:name="MealObj"
+            app:argType="com.example.foodplanner.Model.Meal"
+            app:nullable="true" />
     </fragment>
 </navigation>
