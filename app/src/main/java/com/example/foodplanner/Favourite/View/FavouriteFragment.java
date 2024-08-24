@@ -53,6 +53,8 @@ public class FavouriteFragment extends Fragment implements FavouriteInterface, F
     public void showFavMeals(List<Meal> list) {
         Log.d(TAG, "showFavMeals: "+list);
         adapter.updatedata(list);
+        ifIsEmpty(adapter.meals.isEmpty());
+
     }
 
     @Override
@@ -74,8 +76,7 @@ public class FavouriteFragment extends Fragment implements FavouriteInterface, F
     public void deletedSuccessfully(Meal meal) {
         adapter.meals.remove(meal);
         adapter.updatedata(adapter.meals);
-        if(adapter.meals.isEmpty())
-            ifIsEmpty(true);
+        ifIsEmpty(adapter.meals.isEmpty());
     }
 
     @Override

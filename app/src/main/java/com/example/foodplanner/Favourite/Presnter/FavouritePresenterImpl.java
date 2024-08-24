@@ -22,7 +22,7 @@ public class FavouritePresenterImpl implements favouritePresemterInterface {
 
     @Override
     public void getListOfFavMeal( ) {
-        repo.getFavMeals()
+        repo.getFavMeals(repo.getFireBaseUser().getUid())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(meals -> Log.d(TAG, "getListOfFavMeal before : "+meals.size()))
