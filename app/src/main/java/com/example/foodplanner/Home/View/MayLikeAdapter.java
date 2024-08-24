@@ -1,6 +1,7 @@
 package com.example.foodplanner.Home.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,10 @@ public class MayLikeAdapter extends RecyclerView.Adapter<MayLikeAdapter.MealView
     Glide.with(context).load(Meal.get(position).getStrMealThumb()).override(190,160).into(holder.image);
     holder.button.setOnClickListener(v -> {
         HomeFragmentDirections.ActionNavigationHomeToDetailsFragment action =
-                HomeFragmentDirections.actionNavigationHomeToDetailsFragment(Meal.get(position).getIdMeal());
+                HomeFragmentDirections.actionNavigationHomeToDetailsFragment(Meal.get(position).getIdMeal(), null);
         Navigation.findNavController(holder.itemView).navigate(action);
     });
+        Log.d("Counter", "onBindViewHolder: "+position);
     }
 
     public void updatedata(List<Meal> Meal) {

@@ -1,6 +1,7 @@
 package com.example.foodplanner.Home.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class CountryAdapterNew extends RecyclerView.Adapter<CountryAdapterNew.Co
             Navigation.findNavController(holder.itemView).navigate(action);
         });
         Glide.with(context).load(Country.get(position).getImageResourceId()).into(holder.image);
-
+        Log.d("Counter", "onBindViewHolder: "+position);
     }
 
     @Override

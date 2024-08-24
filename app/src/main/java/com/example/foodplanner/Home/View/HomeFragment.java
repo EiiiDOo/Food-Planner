@@ -25,6 +25,7 @@ import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
@@ -71,11 +72,11 @@ public class HomeFragment extends Fragment implements HomeView {
         rvCountry.setAdapter(countryAdapterNew);
         rvCategory.setAdapter(categoryAdapterNew);
         rvMayLike.setAdapter(mayLikeAdapter);
-        homePresenter = new HomePresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance()), this);
+        homePresenter = new HomePresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
 
         btnToDailsfromrandomMeal.setOnClickListener(v -> {
             HomeFragmentDirections.ActionNavigationHomeToDetailsFragment action =
-                    HomeFragmentDirections.actionNavigationHomeToDetailsFragment(random.getIdMeal());
+                    HomeFragmentDirections.actionNavigationHomeToDetailsFragment(random.getIdMeal(), null);
             Navigation.findNavController(view).navigate(action);
         });
     }

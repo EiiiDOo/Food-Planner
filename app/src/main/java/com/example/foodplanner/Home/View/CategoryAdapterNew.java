@@ -1,6 +1,7 @@
 package com.example.foodplanner.Home.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class CategoryAdapterNew extends RecyclerView.Adapter<CategoryAdapterNew.
                     HomeFragmentDirections.actionNavigationHomeToSearchByFragment(new TypeSearch(Categories.get(position).getStrCategory(), TypeSearch.Type.CATEGORIES));
             Navigation.findNavController(holder.itemView).navigate(action);
         });
+        Log.d("Counter", "onBindViewHolder: "+position);
     }
 
     public void updatedata(List<Categories> Categories) {
