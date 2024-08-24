@@ -1,5 +1,7 @@
 package com.example.foodplanner.Network.Base;
 
+import androidx.annotation.NonNull;
+
 import com.example.foodplanner.Model.Categoryresponse;
 import com.example.foodplanner.Model.IngredientResponse;
 import com.example.foodplanner.Model.MealsResponse;
@@ -86,27 +88,6 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     @Override
-    public void makeMealByFirstLetter(MealsByFierstLetterCallBack networkCallback, String ch) {
-        interfaceRetrofit.getMealByFirstLetter(ch).enqueue(new Callback<MealsResponse>() {
-
-            @Override
-            public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
-
-                if (response.isSuccessful()) {
-                    networkCallback.onSuccessMealsByFirstLetter(response.body().getMeals());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealsResponse> call, Throwable t) {
-
-                networkCallback.onFailureMealsByFirstLetter(t.getMessage());
-            }
-        });
-
-    }
-
-    @Override
     public void makeMealsByCategoryCall(MealsCallBack mealsCallBack, String category) {
         interfaceRetrofit.getMealsByCategory(category).enqueue(new Callback<MealsResponse>() {
 
@@ -190,12 +171,9 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     public void makeMealByNameCall(MealsCallBack mealsCallBack, String name) {
         interfaceRetrofit.getMealByNmae(name).enqueue(new Callback<MealsResponse>() {
             @Override
-            public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
+            public void onResponse(@NonNull Call<MealsResponse> call, @NonNull Response<MealsResponse> response) {
 
                 if (response.isSuccessful()) {
-                    if(response.body().getMeals().size() <=10 ){
-                        makeMealByNameCall(mealsCallBack, "a");
-                    }
                     mealsCallBack.onSuccessMeals(response.body().getMeals());
                 }
             }
