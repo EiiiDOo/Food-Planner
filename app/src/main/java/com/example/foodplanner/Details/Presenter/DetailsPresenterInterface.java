@@ -1,6 +1,7 @@
 package com.example.foodplanner.Details.Presenter;
 
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.MealWithDay;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public interface DetailsPresenterInterface {
     void getFavMeals();
 
     String getUserId();
+
     boolean isFav(Meal meal);
+
+    boolean isPlan(MealWithDay meal);
 
 }

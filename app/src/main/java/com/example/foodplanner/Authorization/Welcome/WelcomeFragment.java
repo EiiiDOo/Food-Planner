@@ -1,6 +1,5 @@
 package com.example.foodplanner.Authorization.Welcome;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,7 +38,6 @@ public class WelcomeFragment extends Fragment {
         });
         login = view.findViewById(R.id.btnToLogin);
         login.setOnClickListener(v -> {
-
             Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_signinFragment);
         });
         guest = view.findViewById(R.id.btnguest);
