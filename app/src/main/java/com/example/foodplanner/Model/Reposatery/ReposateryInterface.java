@@ -2,6 +2,7 @@ package com.example.foodplanner.Model.Reposatery;
 
 import com.example.foodplanner.FireBase.FireBaseCallback;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Network.CategoryCallback;
 import com.example.foodplanner.Network.IngredientCallback;
 import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
@@ -39,10 +40,18 @@ public interface ReposateryInterface {
 
     FirebaseUser getFireBaseUser();
 
-    Flowable <List<Meal>> getFavMeals( );
+    Flowable<List<Meal>> getFavMeals(String id);
 
     Completable insertFavMeals(Meal meal);
 
     Completable deleteFavMeals(Meal meal);
+
+    Flowable<List<MealWithDay>> getMealPlan(String userId, String day);
+
+    Flowable<List<MealWithDay>> getMealPlan(String userId);
+
+    Completable deleteMealPlan(MealWithDay mealWithDay);
+
+    Completable insertMealPlan(MealWithDay mealWithDay);
 
 }

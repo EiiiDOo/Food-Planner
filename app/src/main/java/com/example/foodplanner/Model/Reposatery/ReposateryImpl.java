@@ -3,6 +3,7 @@ package com.example.foodplanner.Model.Reposatery;
 import com.example.foodplanner.FireBase.FireBaseCallback;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasource;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsFavLocalDataSource;
 import com.example.foodplanner.Network.IngredientCallback;
 import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
@@ -97,8 +98,8 @@ public class ReposateryImpl implements ReposateryInterface {
     }
 
     @Override
-    public Flowable<List<Meal>> getFavMeals() {
-        return localDataSource.getMealsThatMatchid();
+    public Flowable<List<Meal>> getFavMeals(String id) {
+        return localDataSource.getMealsThatMatchid(id);
     }
 
     @Override
@@ -109,6 +110,25 @@ public class ReposateryImpl implements ReposateryInterface {
     @Override
     public Completable deleteFavMeals(Meal meal) {
         return localDataSource.deleteMealFav(meal);
+    }
+
+    @Override
+    public Flowable<List<MealWithDay>> getMealPlan(String userId, String day) {
+        return localDataSource.getMealPlan(userId,day);
+    }
+    @Override
+    public Flowable<List<MealWithDay>> getMealPlan(String userId) {
+        return localDataSource.getMealPlan(userId);
+    }
+
+    @Override
+    public Completable deleteMealPlan(MealWithDay mealWithDay) {
+        return localDataSource.deleteMealPlan(mealWithDay);
+    }
+
+    @Override
+    public Completable insertMealPlan(MealWithDay mealWithDay) {
+        return localDataSource.insertMealPlan(mealWithDay);
     }
 
 
