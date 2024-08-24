@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +29,7 @@ import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
@@ -41,7 +41,7 @@ import java.util.List;
 public class DetailsFragment extends Fragment implements DetailsView {
     final String TAG = "DetailsFragment";
     boolean fav = true, calend = true;
-    TextView button;
+    TextView nameOfMeal;
     DetailsPresenterImpl detailsPresenter;
     ProgressBar progressBar;
     ImageButton addToFav, addToPlan;
@@ -74,7 +74,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
         super.onViewCreated(view, savedInstanceState);
         progressBar = view.findViewById(R.id.progressBar2);
         backGroundProgressBar = view.findViewById(R.id.backProgrespar);
-        button = view.findViewById(R.id.nameMeal);
+        nameOfMeal = view.findViewById(R.id.nameMeal);
         rvIngredients = view.findViewById(R.id.recyclerView);
         instractions = view.findViewById(R.id.instractions);
         category = view.findViewById(R.id.categoryText);
@@ -87,50 +87,38 @@ public class DetailsFragment extends Fragment implements DetailsView {
         image = view.findViewById(R.id.imageDaily);
         detailsPresenter = new DetailsPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
         Log.d(TAG, "onViewCreated: ");
-
-        addToPlan.setOnClickListener(v -> {
-            if (calend) {
-                addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
-                calend = !calend;
-            } else {
-                addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addtocalend));
-                calend = !calend;
-            }
-        });
+        detailsPresenter.getFavMeals();
         if (mealFromLastfragment == null)
             detailsPresenter.fetchMealsById(id);
         else
             detailsPresenter.invokeShowMealWithObj(mealFromLastfragment);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void showMeal(List<Meal> meal) {
         mealReadyToSave = meal.get(0);
-
+        setImgCalend(mealReadyToSave.transferToMealWithDay(mealReadyToSave));
         setImgIc(mealReadyToSave);
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            progressBar.setVisibility(View.INVISIBLE);
-            backGroundProgressBar.setVisibility(View.INVISIBLE);
-        }, 1500);
-        button.setText(meal.get(0).getStrMeal());
-        instractions.setText(meal.get(0).getStrInstructions());
-        Log.d("TAG", "showMeal: " + meal.get(0).getStrMealThumb());
-        category.setText(meal.get(0).getStrCategory());
-        String s = meal.get(0).getStrArea();
-        imageCountry.setImageResource(getResourceId(s));
-        Glide.with(getContext()).load(meal.get(0).getStrMealThumb()).placeholder(R.drawable.foodplaceholder).into(image);
-        Log.d("TAG", "showMeal: " + meal.get(0).getIngredients());
-        ingredientAdapter.updatedata(meal.get(0).getIngredients());
-        if (meal.get(0).getStrYoutube() != null && meal.get(0).getStrYoutube().length() != 0) {
+        hideProgressBar();
+        setData(mealReadyToSave);
+        if (meal.get(0).getStrYoutube() != null && !meal.get(0).getStrYoutube().isEmpty()) {
             wv.setVisibility(View.VISIBLE);
-//        wv.setWebChromeClient(new WebChromeClient());
             wv.setWebViewClient(new WebViewClient());
             WebSettings webSettings = wv.getSettings();
             webSettings.setJavaScriptEnabled(true);
             wv.loadUrl(meal.get(0).getStrYoutube());
-
         } else
             wv.setVisibility(View.GONE);
+    }
+    @Override
+    public void showMealWithObj(Meal meal) {
+        mealReadyToSave = meal;
+        setImgIc(meal);
+        addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
+        hideProgressBar();
+        setData(meal);
+
     }
 
     @Override
@@ -148,24 +136,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
         return R.drawable.egypt;
     }
 
-    @Override
-    public void showMealWithObj(Meal meal) {
-        mealReadyToSave = meal;
-        addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            progressBar.setVisibility(View.INVISIBLE);
-            backGroundProgressBar.setVisibility(View.INVISIBLE);
-        }, 1500);
-        button.setText(meal.getStrMeal());
-        instractions.setText(meal.getStrInstructions());
-        Log.d("TAG", "showMeal: " + meal.getStrMealThumb());
-        category.setText(meal.getStrCategory());
-        String s = meal.getStrArea();
-        imageCountry.setImageResource(getResourceId(s));
-        Glide.with(getContext()).load(meal.getStrMealThumb()).placeholder(R.drawable.foodplaceholder).into(image);
-        Log.d("TAG", "showMeal: " + meal.getIngredients());
-        ingredientAdapter.updatedata(meal.getIngredients());
-    }
+
 
     @Override
     public void showSuccessMsg(String msg) {
@@ -173,21 +144,53 @@ public class DetailsFragment extends Fragment implements DetailsView {
     }
 
     void setImgIc(Meal meal) {
-        if(detailsPresenter.isFav(meal)){
+        if (detailsPresenter.isFav(meal)) {
             addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
             addToFav.setClickable(false);
-        }
-        else {
+        } else {
             addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favwhite));
             addToFav.setClickable(true);
             addToFav.setOnClickListener(v -> {
                 addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
-                Log.d(TAG, "onViewCreated: "+"insid");
+                Log.d(TAG, "onViewCreated: " + "insid");
                 mealReadyToSave.setUserId(detailsPresenter.getUserId());
                 detailsPresenter.addTofav(mealReadyToSave);
                 addToFav.setOnClickListener(null);
             });
         }
+    }
+
+    void setImgCalend(MealWithDay meal) {
+        if (detailsPresenter.isPlan(meal)) {
+            addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
+            addToPlan.setEnabled(false);
+        } else {
+            addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addtocalend));
+            addToPlan.setEnabled(true);
+            addToPlan.setOnClickListener(v -> {
+                addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
+                meal.setUserId(detailsPresenter.getUserId());
+                meal.setDay("4");
+                detailsPresenter.addPlan(meal);
+                addToPlan.setOnClickListener(null);
+            });
+        }
+    }
+
+    void hideProgressBar() {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            progressBar.setVisibility(View.INVISIBLE);
+            backGroundProgressBar.setVisibility(View.INVISIBLE);
+        }, 1500);
+    }
+
+    void setData(Meal meal) {
+        nameOfMeal.setText(meal.getStrMeal());
+        instractions.setText(meal.getStrInstructions());
+        category.setText(meal.getStrCategory());
+        imageCountry.setImageResource(getResourceId(meal.getStrArea()));
+        Glide.with(getContext()).load(meal.getStrMealThumb()).placeholder(R.drawable.foodplaceholder).into(image);
+        ingredientAdapter.updatedata(meal.getIngredients());
     }
 
 

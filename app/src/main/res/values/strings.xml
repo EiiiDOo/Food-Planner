@@ -30,6 +30,14 @@
     <string name="youmightlike">You MIGHT Like</string>
     <string name="meal">Meal</string>
     <string name="Nomealhasbeenadeded">No Meals has Been Added</string>
+    <string name="DayOne">Day One</string>
+    <string name="daytwo">Day Two</string>
+    <string name="daythree">day Three</string>
+    <string name="dayfour">Day Four</string>
+    <string name="dayfive">Day Five</string>
+    <string name="daySix">Day Six</string>
+    <string name="DaySeven">Day Seven</string>
+    <string name="logout">Log Out</string>
     <!-- Strings used for fragments for navigation -->
 
 

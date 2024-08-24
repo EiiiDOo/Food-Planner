@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -38,7 +39,7 @@ public class SplashActivity extends AppCompatActivity implements SplashInterface
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         setContentView(R.layout.activity_splash);
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.splash), (view, windowInsets) -> {
@@ -53,6 +54,7 @@ public class SplashActivity extends AppCompatActivity implements SplashInterface
         sp = getSharedPreferences("userdetails", MODE_PRIVATE);
         editor = sp.edit();
         splashPresenter = new SplashPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this)), this);
+        Log.d("SplashActivitySplashActivity", "onCreate: "+splashPresenter.getUserId());
         editor.putString("user", splashPresenter.getUserId());
         editor.commit();
 
