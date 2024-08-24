@@ -8,4 +8,6 @@ public interface DetailsView {
     void showMeal(List<Meal> meal);
     void showErrorMsg(String error);
     int getResourceId(String name);
+    void showMealWithObj(Meal meal);
+    void showSuccessMsg(String msg);
 }
