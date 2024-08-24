@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.MealWithDay;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -16,23 +17,14 @@ import io.reactivex.rxjava3.core.Flowable;
 public class MealsfavLocalDataSourceImpl implements MealsFavLocalDataSource {
 
     static Context context;
-    private Flowable<List<Meal>> favMeal;
     private MealsDAO dao;
     private static MealsfavLocalDataSourceImpl instance = null;
-    static SharedPreferences sp;
-    static String id ;
-
-
 
 
     public MealsfavLocalDataSourceImpl(Context context) {
         MealsfavLocalDataSourceImpl.context = context;
         AppDataBase db = AppDataBase.getInstance(context);
         dao = db.getMealsDAO();
-        sp = context.getSharedPreferences("userdetails", 0x0000);
-        id=sp.getString("user", null);
-        favMeal = dao.getMealsThatMatchid(id);
-        Log.d("FavouritePresenterImpl", "MealsfavLocalDataSourceImpl: "+id);
 
     }
     public static MealsfavLocalDataSourceImpl getInstance(Context context){
@@ -44,8 +36,8 @@ public class MealsfavLocalDataSourceImpl implements MealsFavLocalDataSource {
     }
 
     @Override
-    public Flowable<List<Meal>> getMealsThatMatchid() {
-        return favMeal;
+    public Flowable<List<Meal>> getMealsThatMatchid(String id) {
+        return dao.getMealsThatMatchid(id);
 
     }
 
@@ -57,5 +49,24 @@ public class MealsfavLocalDataSourceImpl implements MealsFavLocalDataSource {
     @Override
     public Completable deleteMealFav(Meal meal) {
         return dao.deleteMealFav(meal);
+    }
+
+    @Override
+    public Flowable<List<MealWithDay>> getMealPlan(String userId, String day) {
+        return dao.getMealPlan(userId , day);
+
+    }@Override
+    public Flowable<List<MealWithDay>> getMealPlan(String userId) {
+        return dao.getMealPlan(userId );
+    }
+
+    @Override
+    public Completable deleteMealPlan(MealWithDay mealWithDay) {
+        return dao.deleteMealPlan(mealWithDay);
+    }
+
+    @Override
+    public Completable insertMealPlan(MealWithDay mealWithDay) {
+        return dao.insertMealPlan(mealWithDay);
     }
 }
