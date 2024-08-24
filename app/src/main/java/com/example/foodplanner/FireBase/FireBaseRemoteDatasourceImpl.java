@@ -52,6 +52,11 @@ public class FireBaseRemoteDatasourceImpl implements FireBaseRemoteDatasource {
     }
 
     @Override
+    public FirebaseUser getCurrentUser() {
+        return firebaseAuth.getCurrentUser();
+    }
+
+    @Override
     public void signin(String email,String password, FireBaseCallback fireBaseCallback){
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
