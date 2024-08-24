@@ -2,25 +2,35 @@ package com.example.foodplanner.Model.Reposatery;
 
 import com.example.foodplanner.FireBase.FireBaseCallback;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasource;
+import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.RepoRoom.Room.MealsFavLocalDataSource;
 import com.example.foodplanner.Network.IngredientCallback;
 import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
 import com.example.foodplanner.Network.MealsCallBack;
 import com.example.foodplanner.Network.Base.RemoteDataSource;
 import com.example.foodplanner.Network.CategoryCallback;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class ReposateryImpl implements ReposateryInterface {
     private static ReposateryImpl instance = null;
     private RemoteDataSource remoteDataSource;
     FireBaseRemoteDatasource fireBase;
+    MealsFavLocalDataSource localDataSource;
 
-    private ReposateryImpl(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase) {
+    private ReposateryImpl(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase, MealsFavLocalDataSource localDataSource) {
         this.remoteDataSource = remoteDataSource;
         this.fireBase = fireBase;
+        this.localDataSource = localDataSource;
     }
 
-    public static ReposateryImpl getInstance(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase) {
+    public static ReposateryImpl getInstance(RemoteDataSource remoteDataSource, FireBaseRemoteDatasource fireBase, MealsFavLocalDataSource localDataSource) {
         if (instance == null) {
-            instance = new ReposateryImpl(remoteDataSource, fireBase);
+            instance = new ReposateryImpl(remoteDataSource, fireBase,localDataSource);
 
         }
         return instance;
@@ -79,6 +89,26 @@ public class ReposateryImpl implements ReposateryInterface {
     @Override
     public void signOut(FireBaseCallback fireBaseCallback) {
         fireBase.signOut(fireBaseCallback);
+    }
+
+    @Override
+    public FirebaseUser getFireBaseUser() {
+        return fireBase.getCurrentUser();
+    }
+
+    @Override
+    public Flowable<List<Meal>> getFavMeals() {
+        return localDataSource.getMealsThatMatchid();
+    }
+
+    @Override
+    public Completable insertFavMeals(Meal meal) {
+        return localDataSource.insertMealFav(meal);
+    }
+
+    @Override
+    public Completable deleteFavMeals(Meal meal) {
+        return localDataSource.deleteMealFav(meal);
     }
 
 
