@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9A9A9A">
+        <!--        android:background="#63000000"-->
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageDaily"
+            android:layout_width="190dp"
+            android:layout_height="160dp"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundCorner"
+            tools:src="@drawable/foodplaceholder" />
+
+        <TextView
+            android:id="@+id/nameOfDailyMeal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#FAB9B2B2"
+            android:fontFamily="@font/candal"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/imageDaily"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/imageDaily"
+            app:layout_constraintTop_toBottomOf="@+id/imageDaily" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnfromMealByToDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#00FFFFFF"
+        app:cornerRadius="0dp" />
+
+    <ImageButton
+        android:id="@+id/btnCancle"
+        android:layout_width="41dp"
+        android:layout_height="38dp"
+        android:layout_gravity="right"
+        android:background="#00FFFFFF"
+        android:elevation="20dp"
+        app:srcCompat="@drawable/ic_cancle" />
+
+</androidx.cardview.widget.CardView>
