@@ -47,7 +47,8 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
     public void choseType(TypeSearch.Type type) {
         switch (type) {
             case COUNTRIES:
-                reposatery.fetchMealsByCountry(typeSearch.getParam(), this);
+                reposatery.fetchMealsByCountry(typeSearch.getParam()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(e -> onSuccessMeals(e.getMeals()), e -> onFailureMeals(e.getMessage()));
                 searchByView.getTitle("Countries");
                 searchByView.withTypingCountry()
                         .subscribeOn(Schedulers.io())
@@ -56,11 +57,16 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                             if (e.equals("null"))
                                 searchByView.showErrorMsg("No Meals Found");
                             else
-                                reposatery.fetchMealsByCountry(e, this);
+                                reposatery.fetchMealsByCountry(e).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe( l -> onSuccessMeals(l.getMeals()), w->onFailureMeals(w.getMessage()));
+
                         });
                 break;
             case INGREDIENTS:
-                reposatery.fetchMealsByIngredient(typeSearch.getParam(), this);
+                reposatery.fetchMealsByIngredient(typeSearch.getParam())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(e -> onSuccessMeals(e.getMeals()), e -> onFailureMeals(e.getMessage()));
                 searchByView.getTitle("Ingredients");
                 searchByView.withTypingIngredient()
                         .subscribeOn(Schedulers.io())
@@ -69,11 +75,17 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                             if (e.equals("null"))
                                 searchByView.showErrorMsg("No Meals Found");
                             else
-                                reposatery.fetchMealsByIngredient(e, this);
+                                reposatery.fetchMealsByIngredient(e)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(l -> onSuccessMeals(l.getMeals()), w -> onFailureMeals(w.getMessage()));
                         });
                 break;
             case CATEGORIES:
-                reposatery.fetchMealsByCategory(typeSearch.getParam(), this);
+                reposatery.fetchMealsByCategory(typeSearch.getParam())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(e -> onSuccessMeals(e.getMeals()), e -> onFailureMeals(e.getMessage()));
                 searchByView.getTitle("Categories");
                 searchByView.withTypingCategory()
                         .subscribeOn(Schedulers.io())
@@ -82,11 +94,16 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                             if (e.equals("null"))
                                 searchByView.showErrorMsg("No Meals Found");
                             else
-                                reposatery.fetchMealsByCategory(e, this);
+                                reposatery.fetchMealsByCategory(e)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(l -> onSuccessMeals(l.getMeals()), w -> onFailureMeals(w.getMessage()));
                         });
                 break;
             case MealsByNmae:
-                reposatery.fetchMealsByName(typeSearch.getParam(), this);
+                reposatery.fetchMealsByName(typeSearch.getParam())
+                        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(e -> onSuccessMeals(e.getMeals()), e -> onFailureMeals(e.getMessage()));
                 searchByView.getTitle("Meals");
                 searchByView.withTypingMeal()
                         .subscribeOn(Schedulers.io())
@@ -95,7 +112,10 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                             if (e.equals("null"))
                                 searchByView.showErrorMsg("No Meals Found");
                             else
-                                reposatery.fetchMealsByName(e, this);
+                                reposatery.fetchMealsByName(e)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(l -> onSuccessMeals(l.getMeals()), w -> onFailureMeals(w.getMessage()));
                         });
                 break;
         }

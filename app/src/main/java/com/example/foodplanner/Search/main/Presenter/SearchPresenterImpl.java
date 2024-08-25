@@ -13,6 +13,9 @@ import com.example.foodplanner.Search.main.View.SearchInterfaceView;
 import java.util.List;
 import java.util.Random;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class SearchPresenterImpl implements CategoryCallback, IngredientCallback, MealsCallBack {
     ReposateryImpl reposatery;
     SearchInterfaceView searchView;
@@ -20,9 +23,14 @@ public class SearchPresenterImpl implements CategoryCallback, IngredientCallback
     public SearchPresenterImpl(ReposateryImpl reposatery, SearchInterfaceView searchView) {
         this.searchView = searchView;
         this.reposatery = reposatery;
-        reposatery.fetchCategories(this);
-        reposatery.fetchIngredients(this);
-        reposatery.fetchMealsByName(getRandomLowercaseLetter(), this);
+        reposatery.fetchCategories().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->onSuccessCategory(e.getCategories()), e->onFailureCategory(e.getMessage()));
+
+        reposatery.fetchIngredients().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->onSuccessIngredient(e.getIngredients()), e->onFailureIngredient(e.getMessage()));
+
+        reposatery.fetchMealsByName(getRandomLowercaseLetter()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->onSuccessMeals(e.getMeals()), e->onFailureMeals(e.getMessage()));
     }
     @Override
     public void onSuccessCategory(List<Categories> categories) {
