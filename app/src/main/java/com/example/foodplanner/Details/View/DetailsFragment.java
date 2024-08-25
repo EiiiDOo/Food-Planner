@@ -28,6 +28,7 @@ import com.example.foodplanner.Details.Presenter.DetailsPresenterImpl;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
+import com.example.foodplanner.Model.DaysDialog;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
@@ -37,6 +38,9 @@ import com.example.foodplanner.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class DetailsFragment extends Fragment implements DetailsView {
     final String TAG = "DetailsFragment";
@@ -51,13 +55,13 @@ public class DetailsFragment extends Fragment implements DetailsView {
     ImageView image, imageCountry;
     String id;
     WebView wv;
+    DaysDialog daysDialog;
     Meal mealFromLastfragment, mealReadyToSave;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        id = DetailsFragmentArgs.fromBundle(getArguments()).getID();
-        mealFromLastfragment = DetailsFragmentArgs.fromBundle(getArguments()).getMealObj();
+
         Log.d(TAG, "onCreate: " + id);
     }
 
@@ -72,6 +76,9 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        id = DetailsFragmentArgs.fromBundle(getArguments()).getID();
+        mealFromLastfragment = DetailsFragmentArgs.fromBundle(getArguments()).getMealObj();
+
         progressBar = view.findViewById(R.id.progressBar2);
         backGroundProgressBar = view.findViewById(R.id.backProgrespar);
         nameOfMeal = view.findViewById(R.id.nameMeal);
@@ -86,21 +93,26 @@ public class DetailsFragment extends Fragment implements DetailsView {
         wv = view.findViewById(R.id.webView);
         image = view.findViewById(R.id.imageDaily);
         detailsPresenter = new DetailsPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
-        Log.d(TAG, "onViewCreated: ");
+
         detailsPresenter.getFavMeals();
-        if (mealFromLastfragment == null)
+
+        if (mealFromLastfragment == null){
             detailsPresenter.fetchMealsById(id);
-        else
+        }
+        else {
+            Log.d(TAG, "onViewCreated ELSE: "+mealFromLastfragment.getUserId());
             detailsPresenter.invokeShowMealWithObj(mealFromLastfragment);
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void showMeal(List<Meal> meal) {
         mealReadyToSave = meal.get(0);
+        Log.d(TAG, "showMeal: "+mealReadyToSave.getStrArea());;
         setImgCalend(mealReadyToSave.transferToMealWithDay(mealReadyToSave));
         setImgIc(mealReadyToSave);
-        hideProgressBar();
+        hideProgressBar(mealReadyToSave);
         setData(mealReadyToSave);
         if (meal.get(0).getStrYoutube() != null && !meal.get(0).getStrYoutube().isEmpty()) {
             wv.setVisibility(View.VISIBLE);
@@ -114,9 +126,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
     @Override
     public void showMealWithObj(Meal meal) {
         mealReadyToSave = meal;
-        setImgIc(meal);
-        addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
-        hideProgressBar();
+
+        hideProgressBar(meal);
         setData(meal);
 
     }
@@ -133,7 +144,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
                 return c.getImageResourceId();
             }
         }
-        return R.drawable.egypt;
+        return R.drawable.unknown;
     }
 
 
@@ -145,42 +156,89 @@ public class DetailsFragment extends Fragment implements DetailsView {
 
     void setImgIc(Meal meal) {
         if (detailsPresenter.isFav(meal)) {
+            Log.d(TAG, "setImgIc: in check is fav"+detailsPresenter.isFav(meal));
             addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
-            addToFav.setClickable(false);
+            addToFav.setEnabled(false);
         } else {
             addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favwhite));
-            addToFav.setClickable(true);
+            addToFav.setEnabled(true);
             addToFav.setOnClickListener(v -> {
+                meal.setUserId(detailsPresenter.getUserId());
+                detailsPresenter.addTofav(meal);
                 addToFav.setImageDrawable(getContext().getDrawable(R.drawable.favblack));
-                Log.d(TAG, "onViewCreated: " + "insid");
-                mealReadyToSave.setUserId(detailsPresenter.getUserId());
-                detailsPresenter.addTofav(mealReadyToSave);
-                addToFav.setOnClickListener(null);
-            });
+                addToFav.setOnClickListener(null);});
         }
     }
 
     void setImgCalend(MealWithDay meal) {
-        if (detailsPresenter.isPlan(meal)) {
-            addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
-            addToPlan.setEnabled(false);
-        } else {
             addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addtocalend));
-            addToPlan.setEnabled(true);
             addToPlan.setOnClickListener(v -> {
-                addToPlan.setImageDrawable(getContext().getDrawable(R.drawable.addedtocalend));
-                meal.setUserId(detailsPresenter.getUserId());
-                meal.setDay("4");
-                detailsPresenter.addPlan(meal);
-                addToPlan.setOnClickListener(null);
+                daysDialog = new DaysDialog(getActivity());
+                daysDialog.getConfirmButton().setOnClickListener(v1 -> {
+                    daysDialog.getConfirmButton().setEnabled(false);
+                    meal.setUserId(detailsPresenter.getUserId());
+                    daysDialog.getDays()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(day -> {
+//                                Log.d(TAG, "setImgCalend emit: "+day);
+//                                newMeal.setDay(day);
+//                                Log.d(TAG, "setImgCalend emit: "+newMeal.getDay());
+//                                detailsPresenter.addPlan(newMeal);
+//                                Log.d(TAG, "setImgCalend emit: after emitted");
+                                switch(day){
+                                    case "1":
+                                        MealWithDay newMeal = new MealWithDay(meal);
+                                        newMeal.setDay(day);
+                                        detailsPresenter.addPlan(newMeal);
+                                        break;
+                                    case "2":
+                                        MealWithDay newMeal2 = new MealWithDay(meal);
+                                        newMeal2.setDay(day);
+                                        detailsPresenter.addPlan(newMeal2);
+                                        break;
+                                    case "3":
+                                        MealWithDay newMeal3 = new MealWithDay(meal);
+                                        newMeal3.setDay(day);
+                                        detailsPresenter.addPlan(newMeal3);
+                                        break;
+                                    case "4":
+                                        MealWithDay newMeal4 = new MealWithDay(meal);
+                                        newMeal4.setDay(day);
+                                        detailsPresenter.addPlan(newMeal4);
+                                        break;
+                                    case "5":
+                                        MealWithDay newMeal5 = new MealWithDay(meal);
+                                        newMeal5.setDay(day);
+                                        detailsPresenter.addPlan(newMeal5);
+                                        break;
+                                    case "6":
+                                        MealWithDay newMeal6 = new MealWithDay(meal);
+                                        newMeal6.setDay(day);
+                                        detailsPresenter.addPlan(newMeal6);
+                                        break;
+                                    case "7":
+                                        MealWithDay newMeal7 = new MealWithDay(meal);
+                                        newMeal7.setDay(day);
+                                        detailsPresenter.addPlan(newMeal7);
+                                        break;
+                                }
+                            },e->{
+                                Toast.makeText(this.getContext(), "", Toast.LENGTH_SHORT).show();
+                            },()->{
+                                daysDialog.dismissDialog();
+                                Toast.makeText(this.getContext(), "", Toast.LENGTH_SHORT).show();});
+                });
             });
         }
-    }
 
-    void hideProgressBar() {
+
+    void hideProgressBar(Meal meal) {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             progressBar.setVisibility(View.INVISIBLE);
             backGroundProgressBar.setVisibility(View.INVISIBLE);
+            setImgIc(meal);
+            setImgCalend(meal.transferToMealWithDay(meal));
         }, 1500);
     }
 
