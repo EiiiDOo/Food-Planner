@@ -1,21 +1,23 @@
 package com.example.foodplanner.Model.Reposatery;
 
+
+
 import com.example.foodplanner.FireBase.FireBaseCallback;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasource;
+import com.example.foodplanner.Model.Categoryresponse;
+import com.example.foodplanner.Model.IngredientResponse;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
+import com.example.foodplanner.Model.MealsResponse;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsFavLocalDataSource;
-import com.example.foodplanner.Network.IngredientCallback;
-import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
-import com.example.foodplanner.Network.MealsCallBack;
 import com.example.foodplanner.Network.Base.RemoteDataSource;
-import com.example.foodplanner.Network.CategoryCallback;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class ReposateryImpl implements ReposateryInterface {
     private static ReposateryImpl instance = null;
@@ -37,44 +39,45 @@ public class ReposateryImpl implements ReposateryInterface {
         return instance;
     }
 
+
     @Override
-    public void fetchRandomMeals(MealsCallBack mealsCallBack) {
-        remoteDataSource.makeRandomMealsCall(mealsCallBack);
+    public Observable<MealsResponse> fetchRandomMeals() {
+        return remoteDataSource.makeRandomMealsCall();
     }
 
     @Override
-    public void fetchMealsById(String id, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByIdCall(mealsCallBack, id);
+    public Observable<MealsResponse> fetchMealsById(String id) {
+        return remoteDataSource.makeMealsByIdCall(id);
     }
 
     @Override
-    public void fetchMealsByCategory(String category, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByCategoryCall(mealsCallBack, category);
+    public Observable<MealsResponse> fetchMealsByCategory(String category) {
+        return remoteDataSource.makeMealsByCategoryCall(category);
     }
 
     @Override
-    public void fetchMealsByCountry(String country, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByCountryCall(mealsCallBack, country);
+    public Observable<MealsResponse> fetchMealsByCountry(String country) {
+        return remoteDataSource.makeMealsByCountryCall(country);
     }
 
     @Override
-    public void fetchMealsByIngredient(String ingredient, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealsByIngredientCall(mealsCallBack, ingredient);
+    public Observable<MealsResponse> fetchMealsByIngredient(String ingredient) {
+        return remoteDataSource.makeMealsByIngredientCall(ingredient);
     }
 
     @Override
-    public void fetchMealsByName(String name, MealsCallBack mealsCallBack) {
-        remoteDataSource.makeMealByNameCall(mealsCallBack, name);
+    public Observable<MealsResponse> fetchMealsByName(String name) {
+        return remoteDataSource.makeMealByNameCall(name);
     }
 
     @Override
-    public void fetchCategories(CategoryCallback networkCallback) {
-        remoteDataSource.makeCategoryCall(networkCallback);
+    public Observable<Categoryresponse> fetchCategories() {
+        return remoteDataSource.makeCategoryCall();
     }
 
     @Override
-    public void fetchIngredients(IngredientCallback callback) {
-        remoteDataSource.makeIngredientsCall(callback);
+    public Observable<IngredientResponse> fetchIngredients() {
+        return remoteDataSource.makeIngredientsCall();
     }
 
     @Override

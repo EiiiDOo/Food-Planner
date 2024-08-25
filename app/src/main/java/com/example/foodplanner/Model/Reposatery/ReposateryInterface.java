@@ -1,36 +1,38 @@
 package com.example.foodplanner.Model.Reposatery;
 
+
+
 import com.example.foodplanner.FireBase.FireBaseCallback;
+import com.example.foodplanner.Model.Categoryresponse;
+import com.example.foodplanner.Model.IngredientResponse;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
-import com.example.foodplanner.Network.CategoryCallback;
-import com.example.foodplanner.Network.IngredientCallback;
-import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
-import com.example.foodplanner.Network.MealsCallBack;
+import com.example.foodplanner.Model.MealsResponse;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public interface ReposateryInterface {
 
-    void fetchRandomMeals(MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchRandomMeals( );
 
-    void fetchMealsById(String id, MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchMealsById(String id );
 
-    void fetchMealsByCategory(String category, MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchMealsByCategory(String category );
 
-    void fetchMealsByCountry(String country, MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchMealsByCountry(String country);
 
-    void fetchMealsByIngredient(String ingredient, MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchMealsByIngredient(String ingredient );
 
-    void fetchMealsByName(String name, MealsCallBack mealsCallBack);
+    Observable<MealsResponse> fetchMealsByName(String name);
 
-    void fetchCategories(CategoryCallback categoryCallback);
+    Observable<Categoryresponse> fetchCategories();
 
-    void fetchIngredients(IngredientCallback ingredientCallback);
+    Observable<IngredientResponse> fetchIngredients( );
 
     void signin(String email, String password, FireBaseCallback fireBaseCallback);
 
@@ -53,5 +55,6 @@ public interface ReposateryInterface {
     Completable deleteMealPlan(MealWithDay mealWithDay);
 
     Completable insertMealPlan(MealWithDay mealWithDay);
+
 
 }
