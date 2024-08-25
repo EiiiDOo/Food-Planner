@@ -1,5 +1,7 @@
 package com.example.foodplanner.Details.Presenter;
 
+import android.util.Log;
+
 import com.example.foodplanner.Details.View.DetailsView;
 import com.example.foodplanner.Model.Ingredients;
 import com.example.foodplanner.Model.Meal;
@@ -15,10 +17,12 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCallBack, IngredientCallback {
+
     ReposateryImpl reposatery;
     DetailsView detailsView;
     List<Meal> listMeal = new ArrayList<>();
     List<MealWithDay> listMealWithDay = new ArrayList<>();
+
 
     public List<MealWithDay> getListMealWithDay() {
         return listMealWithDay;
@@ -27,7 +31,7 @@ public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCal
     public DetailsPresenterImpl(ReposateryImpl reposatery, DetailsView detailsView) {
         this.reposatery = reposatery;
         this.detailsView = detailsView;
-        getPlanMeals();
+        getFavMeals();
     }
 
     public List<Meal> getList() {
@@ -49,7 +53,15 @@ public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCal
     @Override
     public void fetchMealsById(String id) {
 
-        reposatery.fetchMealsById(id, this);
+        reposatery.fetchMealsById(id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e-> {
+
+                    detailsView.showMeal(e.getMeals());
+                }, e -> {
+
+                    detailsView.showErrorMsg(e.getMessage());
+                });
     }
 
     @Override
@@ -83,17 +95,6 @@ public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCal
 
     }
 
-    public void getPlanMeals() {
-        reposatery.getMealPlan(reposatery.getFireBaseUser().getUid())
-                .observeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e -> {
-                    listMealWithDay = e;
-                }, e -> {
-                    detailsView.showErrorMsg(e.getMessage());
-                });
-
-    }
 
     public void addPlan(MealWithDay mealWithDay) {
         reposatery.insertMealPlan(mealWithDay).subscribeOn(Schedulers.io())
@@ -116,7 +117,14 @@ public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCal
     @Override
     public void onSuccessIngredient(List<Ingredients> ingredients) {
 
-        reposatery.fetchMealsByIngredient(ingredients.get(0).getStrIngredient(), this);
+        reposatery.fetchMealsByIngredient(ingredients.get(0).getStrIngredient()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> {
+
+                    detailsView.showMeal(e.getMeals());
+                }, e -> {
+                    detailsView.showErrorMsg(e.getMessage());
+                });
     }
 
     @Override
@@ -127,7 +135,9 @@ public class DetailsPresenterImpl implements DetailsPresenterInterface, MealsCal
 
     @Override
     public boolean isFav(Meal meal) {
-        return listMeal.stream().anyMatch(e -> e.getStrMeal().equals(meal.getStrMeal()));
+        Log.d("DetailsFragment", "isFav: from is fav "+meal.getUserId());
+        Log.d("DetailsFragment", "isFav: from is fav "+listMeal.toString());
+        return listMeal.stream().anyMatch(e -> e.getIdMeal().equals(meal.getIdMeal()));
     }
 
     @Override
