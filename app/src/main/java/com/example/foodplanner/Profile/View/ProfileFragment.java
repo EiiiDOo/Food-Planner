@@ -1,10 +1,12 @@
 package com.example.foodplanner.Profile.View;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodplanner.Authorization.AuthorizActivity;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
@@ -31,6 +34,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
     ProfilePresenter profilePresenter;
     RecyclerView rvDay1, rvDay2, rvDay3, rvDay4, rvDay5, rvDay6, rvDay7;
     PlanAdaoter planAdapter1, planAdapter2, planAdapter3, planAdapter4, planAdapter5, planAdapter6, planAdapter7;
+    ImageButton btnSignOut;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +54,15 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
         rvDay5 = view.findViewById(R.id.rvDay5);
         rvDay6 = view.findViewById(R.id.rvDay6);
         rvDay7 = view.findViewById(R.id.rvday7);
+
+        btnSignOut = view.findViewById(R.id.btnLogedOut);
+        btnSignOut.setOnClickListener(v ->
+                {
+                    profilePresenter.logout();
+                    Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), AuthorizActivity.class));
+                    finish();
+                });
 
         planAdapter1 = new PlanAdaoter(new ArrayList<>(), this.getContext(),this);
         planAdapter2 = new PlanAdaoter(new ArrayList<>(), this.getContext(),this);
@@ -140,6 +153,12 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
     @Override
     public void showErrorMsg(String msg) {
         Toast.makeText(this.getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finish() {
+        new Handler().postDelayed(() -> getActivity().finish(), 1000);
+//        getActivity().finish();
     }
 
     @Override

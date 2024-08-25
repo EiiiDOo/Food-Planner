@@ -15,6 +15,7 @@ public interface ProfileInterface {
      void setDay7(List<MealWithDay> mealWithDays);
      void setDay(List<MealWithDay> mealWithDays,String day);
      void showErrorMsg(String msg);
+     void finish();
 
      void deleteed(MealWithDay mealWithDay);
 
