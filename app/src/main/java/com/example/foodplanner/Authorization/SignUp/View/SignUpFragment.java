@@ -65,6 +65,7 @@ public class SignUpFragment extends Fragment implements SignUpView {
     public void signUpsuccess() {
         Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
         navController.navigate(R.id.action_signUpFragment_to_mainActivity);
+        getActivity().finish();
     }
 
     @Override

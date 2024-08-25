@@ -63,6 +63,7 @@ public class SigninFragment extends Fragment implements  SigninView {
     public void signinsuccess() {
         Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
         navController.navigate(R.id.action_signinFragment_to_mainActivity);
+        getActivity().finish();
     }
 
     @Override
