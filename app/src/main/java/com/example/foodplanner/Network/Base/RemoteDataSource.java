@@ -1,24 +1,27 @@
 package com.example.foodplanner.Network.Base;
 
-import com.example.foodplanner.Network.CategoryCallback;
-import com.example.foodplanner.Network.IngredientCallback;
-import com.example.foodplanner.Network.MealsByFierstLetterCallBack;
-import com.example.foodplanner.Network.MealsCallBack;
+
+import com.example.foodplanner.Model.Categoryresponse;
+import com.example.foodplanner.Model.IngredientResponse;
+import com.example.foodplanner.Model.MealsResponse;
+
+import io.reactivex.rxjava3.core.Observable;
+
 
 public interface RemoteDataSource {
-    void makeRandomMealsCall(MealsCallBack networkCallback);
+    Observable<MealsResponse> makeRandomMealsCall( );
 
-    void makeCategoryCall(CategoryCallback networkCallback);
+    Observable<Categoryresponse> makeCategoryCall();
 
-    void makeIngredientsCall(IngredientCallback networkCallback);
+    Observable<IngredientResponse> makeIngredientsCall( );
 
-    void makeMealsByCategoryCall(MealsCallBack mealsCallBack, String category);
+    Observable<MealsResponse> makeMealsByCategoryCall(String category);
 
-    void makeMealsByCountryCall(MealsCallBack mealsCallBack, String country);
+    Observable<MealsResponse> makeMealsByCountryCall(String country);
 
-    void makeMealsByIngredientCall(MealsCallBack mealsCallBack, String ingredient);
+    Observable<MealsResponse> makeMealsByIngredientCall(String ingredient);
 
-    void makeMealsByIdCall(MealsCallBack mealsCallBack, String id);
+    Observable<MealsResponse> makeMealsByIdCall(String id);
 
-    void makeMealByNameCall(MealsCallBack mealsCallBack, String name);
+    Observable<MealsResponse> makeMealByNameCall( String name);
 }
