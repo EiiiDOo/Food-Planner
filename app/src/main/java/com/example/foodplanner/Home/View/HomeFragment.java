@@ -88,14 +88,16 @@ public class HomeFragment extends Fragment implements HomeView {
 
     @Override
     public void showMeal(List<Meal> meals) {
-        nameOfMeal.setText(meals.get(0).getStrMeal());
-        random = meals.get(0);
-        Glide.with(getContext())
-                .load(meals.get(0)
-                        .getStrMealThumb())
-                .into(dailyInspiration);
-
         mayLikeAdapter.updatedata(meals);
+    }
+
+    @Override
+    public void showrandMeal(Meal meal) {
+        random = meal;
+        nameOfMeal.setText(meal.getStrMeal());
+        Glide.with(getContext())
+                .load(meal.getStrMealThumb())
+                .into(dailyInspiration);
     }
 
     @Override
