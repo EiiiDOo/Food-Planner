@@ -59,7 +59,6 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                             else
                                 reposatery.fetchMealsByCountry(e).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                                         .subscribe( l -> onSuccessMeals(l.getMeals()), w->onFailureMeals(w.getMessage()));
-
                         });
                 break;
             case INGREDIENTS:
