@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:minWidth="150dp"
+    android:minHeight="200dp"
+    app:cardCornerRadius="40dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="220dp">
+
+        <CheckBox
+            android:id="@+id/chbDay7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="56dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chbDay4" />
+
+        <CheckBox
+            android:id="@+id/chbDay5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day5"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chbDay6"
+            app:layout_constraintHorizontal_bias="0.851"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/chbDay6" />
+
+        <CheckBox
+            android:id="@+id/chbDay6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day6"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chbDay7"
+            app:layout_constraintTop_toTopOf="@+id/chbDay7" />
+
+        <CheckBox
+            android:id="@+id/chbDay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day1"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chbDay2"
+            app:layout_constraintTop_toTopOf="@+id/chbDay2" />
+
+        <CheckBox
+            android:id="@+id/chbDay2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day2"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chbDay3"
+            app:layout_constraintTop_toTopOf="@+id/chbDay3" />
+
+        <CheckBox
+            android:id="@+id/chbDay3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chbDay4"
+            app:layout_constraintTop_toTopOf="@+id/chbDay4" />
+
+        <CheckBox
+            android:id="@+id/chbDay4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="none"
+            android:fontFamily="@font/candal"
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:text="@string/day4"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="#000000"
+            android:text="@string/ADD"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btnCancleDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="#CE2D2D"
+            android:text="@string/cancle"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

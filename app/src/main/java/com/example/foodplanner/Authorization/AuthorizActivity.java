@@ -3,15 +3,9 @@ package com.example.foodplanner.Authorization;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import com.example.foodplanner.R;
 
 public class AuthorizActivity extends AppCompatActivity {

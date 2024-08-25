@@ -38,6 +38,15 @@
     <string name="daySix">Day Six</string>
     <string name="DaySeven">Day Seven</string>
     <string name="logout">Log Out</string>
+    <string name="ADD">Add</string>
+    <string name="cancle">Cancle</string>
+    <string name="day1">Day1</string>
+    <string name="day2">Day2</string>
+    <string name="day3">Day3</string>
+    <string name="day4">Day4</string>
+    <string name="day5">Day5</string>
+    <string name="day6">Day6</string>
+    <string name="day7">Day7</string>
     <!-- Strings used for fragments for navigation -->
 
 

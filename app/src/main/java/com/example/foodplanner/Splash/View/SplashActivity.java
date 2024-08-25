@@ -59,10 +59,22 @@ public class SplashActivity extends AppCompatActivity implements SplashInterface
         editor.commit();
 
         progressBar = findViewById(R.id.progressBar);
-        new Handler(Looper.getMainLooper()).postDelayed(() -> progressBar.setVisibility(View.VISIBLE), 1000);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
+            progressBar.setVisibility(View.VISIBLE);
+        }, 1000);
         if (splashPresenter.getUserId() != null) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(SPLASH_DISPLAY_LENGTH);
+                    startActivity( new Intent(this, MainActivity.class));
+                    finish();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         } else {
             new Thread(() -> {
                 try {
