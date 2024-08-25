@@ -1,6 +1,7 @@
 package com.example.foodplanner.Profile.View;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -81,6 +82,10 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
             {
                 profilePresenter.logout();
                 Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
+                SharedPreferences sp = getActivity().getSharedPreferences("userdetails", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor  = sp.edit();
+                editor.putString("user","guest");
+                editor.commit();
                 startActivity(new Intent(getActivity(), AuthorizActivity.class));
                 finish();
             });
@@ -205,7 +210,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        profilePresenter.clear();
+//        profilePresenter.clear();
     }
 
     @Override

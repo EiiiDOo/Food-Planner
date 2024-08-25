@@ -29,7 +29,7 @@ public class ProfilePresenterImpl implements ProfilePresenter , FireBaseCallback
 
     @Override
     public void clear() {
-        compositeDisposable.clear();
+//        compositeDisposable.clear();
     }
 
     @Override

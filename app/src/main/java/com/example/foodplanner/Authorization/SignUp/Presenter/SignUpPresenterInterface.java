@@ -10,4 +10,5 @@ public interface SignUpPresenterInterface {
     void signUp(String email, String password, String confirmPassword);
 
     public boolean isNavigate(String email, String pass, String confirmPass);
+    String getUid();
 }

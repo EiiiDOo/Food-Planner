@@ -6,4 +6,5 @@ public interface SigninPresenterInterface {
     void signin(String email, String password);
     boolean isSixOrMore(String s);
     public boolean isNavigate(String email, String pass);
+    String getUid();
 }

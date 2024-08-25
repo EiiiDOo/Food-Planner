@@ -59,4 +59,9 @@ public class SignUpPresenterImpl implements SignUpPresenterInterface, FireBaseCa
         else
             return false;
     }
+
+    @Override
+    public String getUid() {
+        return reposateryInterface.getFireBaseUser().getUid();
+    }
 }

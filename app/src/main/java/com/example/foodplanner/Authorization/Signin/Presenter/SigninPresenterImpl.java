@@ -52,6 +52,11 @@ public class SigninPresenterImpl implements SigninPresenterInterface, FireBaseCa
     }
 
     @Override
+    public String getUid() {
+        return reposateryInterface.getFireBaseUser().getUid();
+    }
+
+    @Override
     public void onSuccess() {
         signinView.signinsuccess();
     }

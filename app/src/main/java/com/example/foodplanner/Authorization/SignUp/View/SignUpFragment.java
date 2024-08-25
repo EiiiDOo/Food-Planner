@@ -1,5 +1,6 @@
 package com.example.foodplanner.Authorization.SignUp.View;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,10 @@ public class SignUpFragment extends Fragment implements SignUpView {
     @Override
     public void signUpsuccess() {
         Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
+        SharedPreferences sp = getActivity().getSharedPreferences("userdetails", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor editor  = sp.edit();
+        editor.putString("user",upPresenter.getUid());
+        editor.commit();
         navController.navigate(R.id.action_signUpFragment_to_mainActivity);
         getActivity().finish();
     }
