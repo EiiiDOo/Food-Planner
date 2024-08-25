@@ -22,6 +22,7 @@ roomRuntime = "2.6.1"
 adapterRxjava3 = "2.11.0"
 rxandroid = "3.0.2"
 roomRxjava3 = "2.6.1"
+rxbinding = "4.0.0"
 rxjava3RetrofitAdapter = "3.0.0"
 
 
@@ -48,6 +49,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "adapterRxjava3" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRxjava3" }
+rxbinding = { module = "com.jakewharton.rxbinding4:rxbinding", version.ref = "rxbinding" }
 rxjava3-retrofit-adapter = { module = "com.github.akarnokd:rxjava3-retrofit-adapter", version.ref = "rxjava3RetrofitAdapter" }
 
 

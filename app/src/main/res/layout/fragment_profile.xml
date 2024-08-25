@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView11"
@@ -96,8 +97,9 @@
         android:id="@+id/textEmail"
         android:layout_width="0dp"
         android:layout_height="189dp"
-        android:background="@color/white"
+        android:background="@color/gary"
         android:drawableTop="@drawable/person"
+        android:textColor="@color/white"
         android:gravity="center|top"
         android:text="@string/title_profile"
         android:textSize="48sp"

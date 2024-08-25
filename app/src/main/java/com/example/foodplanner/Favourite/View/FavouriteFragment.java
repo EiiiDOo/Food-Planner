@@ -1,5 +1,6 @@
 package com.example.foodplanner.Favourite.View;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.Favourite.Presnter.FavouritePresenterImpl;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
@@ -31,6 +33,8 @@ public class FavouriteFragment extends Fragment implements FavouriteInterface, F
     FavouritePresenterImpl favouritePresenter;
     TextView textView;
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -38,9 +42,11 @@ public class FavouriteFragment extends Fragment implements FavouriteInterface, F
         adapter = new MealsAdapterFavourite(new ArrayList<>(), getContext(),this);
         rvfavourite.setAdapter(adapter);
         textView = view.findViewById(R.id.textIsEmpty);
+        if(!(MainActivity.statUser).equals("guest")){
 
         favouritePresenter = new FavouritePresenterImpl(this,ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())));
         favouritePresenter.getListOfFavMeal();
+        }
     }
 
     @Override

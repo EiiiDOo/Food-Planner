@@ -2,6 +2,7 @@ package com.example.foodplanner.Favourite.View;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ public class MealsAdapterFavourite extends RecyclerView.Adapter<MealsAdapterFavo
     List<Meal> meals;
     Context context;
     FavLestener favLestener;
+
+
     public MealsAdapterFavourite(List<Meal>meals, Context context, FavLestener favLestener) {
         this.meals = meals;
         this.context = context;

@@ -1,5 +1,6 @@
 package com.example.foodplanner;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -14,6 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavController navController;
+    SharedPreferences sp;
+    public static String  statUser ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
+        sp = getSharedPreferences("userdetails", MODE_PRIVATE);
+        statUser = sp.getString("user","guest");
     }
 }

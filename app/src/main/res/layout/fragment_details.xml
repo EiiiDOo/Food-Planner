@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#CC3131"
+    android:background="@color/white"
     android:fillViewport="true"
     tools:context=".Details.View.DetailsFragment">
 
@@ -178,9 +178,9 @@
 
         <ImageButton
             android:id="@+id/addTofav"
+            android:backgroundTint="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#00FFFFFF"
             android:src="@drawable/favwhite"
             app:layout_constraintStart_toStartOf="@+id/guideline13"
             app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:backgroundTint="#00FFFFFF"
+            android:backgroundTint="@color/black"
             android:src="@drawable/addtocalend"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
             app:layout_constraintTop_toTopOf="parent" />

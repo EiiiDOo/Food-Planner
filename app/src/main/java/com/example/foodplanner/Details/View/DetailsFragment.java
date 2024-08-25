@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Details.Presenter.DetailsPresenterImpl;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.DaysDialog;
@@ -92,17 +93,19 @@ public class DetailsFragment extends Fragment implements DetailsView {
         rvIngredients.setAdapter(ingredientAdapter);
         wv = view.findViewById(R.id.webView);
         image = view.findViewById(R.id.imageDaily);
-        detailsPresenter = new DetailsPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
+        if(!(MainActivity.statUser.equals("guest"))){
+            detailsPresenter = new DetailsPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
 
-        detailsPresenter.getFavMeals();
+            detailsPresenter.getFavMeals();
 
-        if (mealFromLastfragment == null){
-            detailsPresenter.fetchMealsById(id);
-        }
-        else {
-            Log.d(TAG, "onViewCreated ELSE: "+mealFromLastfragment.getUserId());
-            detailsPresenter.invokeShowMealWithObj(mealFromLastfragment);
-        }
+            if (mealFromLastfragment == null){
+                detailsPresenter.fetchMealsById(id);
+            }
+            else {
+                Log.d(TAG, "onViewCreated ELSE: "+mealFromLastfragment.getUserId());
+                detailsPresenter.invokeShowMealWithObj(mealFromLastfragment);
+            }        }
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")

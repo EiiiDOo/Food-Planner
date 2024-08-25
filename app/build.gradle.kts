@@ -56,5 +56,6 @@ dependencies {
     implementation(libs.rxjava3.retrofit.adapter)
     implementation(libs.room.rxjava3)
     annotationProcessor(libs.room.compiler)
+    implementation (libs.rxbinding)
 
 }

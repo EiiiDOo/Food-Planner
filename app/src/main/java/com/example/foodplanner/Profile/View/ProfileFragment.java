@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.Authorization.AuthorizActivity;
 import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
+import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
@@ -56,13 +57,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
         rvDay7 = view.findViewById(R.id.rvday7);
 
         btnSignOut = view.findViewById(R.id.btnLogedOut);
-        btnSignOut.setOnClickListener(v ->
-                {
-                    profilePresenter.logout();
-                    Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), AuthorizActivity.class));
-                    finish();
-                });
+
 
         planAdapter1 = new PlanAdaoter(new ArrayList<>(), this.getContext(),this);
         planAdapter2 = new PlanAdaoter(new ArrayList<>(), this.getContext(),this);
@@ -79,8 +74,18 @@ public class ProfileFragment extends Fragment implements ProfileInterface,Listen
         rvDay5.setAdapter(planAdapter5);
         rvDay6.setAdapter(planAdapter6);
         rvDay7.setAdapter(planAdapter7);
+        if(!(MainActivity.statUser.equals("guest")))
+        {
+            profilePresenter = new ProfilePresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
+            btnSignOut.setOnClickListener(v ->
+            {
+                profilePresenter.logout();
+                Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), AuthorizActivity.class));
+                finish();
+            });
+        }
 
-        profilePresenter = new ProfilePresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
     }
 
     @Override
