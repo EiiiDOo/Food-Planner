@@ -1,7 +1,6 @@
 package com.example.foodplanner.FireBase;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -47,7 +46,7 @@ public class FireBaseRemoteDatasourceImpl implements FireBaseRemoteDatasource {
 
     @Override
     public void signOut(FireBaseCallback fireBaseCallback) {
-//        firebaseAuth.signOut();
+        firebaseAuth.signOut();
 
     }
 
