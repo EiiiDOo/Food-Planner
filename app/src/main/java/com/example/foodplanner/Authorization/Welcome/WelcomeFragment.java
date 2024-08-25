@@ -1,5 +1,6 @@
 package com.example.foodplanner.Authorization.Welcome;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ public class WelcomeFragment extends Fragment {
 
     Button normalSignUp,login,guest;
     ImageButton googleSignUp;
+    SharedPreferences sp ;
+    SharedPreferences.Editor editor ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,8 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sp = getActivity().getSharedPreferences("userdetails", getActivity().MODE_PRIVATE);
+        editor = sp.edit();
         normalSignUp = view.findViewById(R.id.btnNormalSign);
         normalSignUp.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_signUpFragment);
@@ -42,7 +46,8 @@ public class WelcomeFragment extends Fragment {
         });
         guest = view.findViewById(R.id.btnguest);
         guest.setOnClickListener(v -> {
-
+            editor.putString("user", "guest");
+            editor.commit();
             Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_mainActivity);
             //startActivity(new Intent(getActivity(), MainActivity.class));
         });
