@@ -13,6 +13,9 @@ import com.example.foodplanner.Network.MealsCallBack;
 import java.util.List;
 import java.util.Random;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomePresenter {
     ReposateryImpl repo;
     HomeView homeView;
@@ -20,9 +23,24 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
     public HomePresenterImpl(ReposateryImpl repo, HomeView homeView) {
         this.homeView = homeView;
         this.repo = repo;
-        repo.fetchRandomMeals(this);
-        repo.fetchCategories(this);
-        repo.fetchMealsByName(getRandomLowercaseLetter(), this);
+        repo.fetchRandomMeals().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->{
+
+                    homeView.showrandMeal(e.getMeals().get(0));
+                },e->{
+
+                    homeView.showErrorMsg(e.getMessage());
+                });
+        repo.fetchCategories().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->{
+
+                    homeView.showCategory(e.getCategories());
+                },e->{});;
+        repo.fetchMealsByName(getRandomLowercaseLetter()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->{
+
+                    homeView.showMeal(e.getMeals());
+                },e->{});
 
     }
 
