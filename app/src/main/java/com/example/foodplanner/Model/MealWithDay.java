@@ -17,6 +17,59 @@ public class MealWithDay {
             strIngredient20,strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10,
             strMeasure11,strMeasure12,strMeasure13,strMeasure14,strMeasure15,strMeasure16,strMeasure17,strMeasure18,strMeasure19,strMeasure20,strSource;
 
+    public MealWithDay() {
+    }
+
+    @Ignore
+    public MealWithDay(MealWithDay mealWithDay) {
+        this.userId = mealWithDay.userId;
+        this.idMeal = mealWithDay.idMeal;
+        this.day = mealWithDay.day;
+
+        this.strMeal = mealWithDay.strMeal;
+        this.strCategory = mealWithDay.strCategory;
+        this.strArea = mealWithDay.strArea;
+        this.strInstructions = mealWithDay.strInstructions;
+        this.strMealThumb = mealWithDay.strMealThumb;
+        this.strYoutube = mealWithDay.strYoutube;
+        this.strIngredient1 = mealWithDay.strIngredient1;
+        this.strIngredient2 = mealWithDay.strIngredient2;
+        this.strIngredient3 = mealWithDay.strIngredient3;
+        this.strIngredient4 = mealWithDay.strIngredient4;
+        this.strIngredient5 = mealWithDay.strIngredient5;
+        this.strIngredient6 = mealWithDay.strIngredient6;
+        this.strIngredient7 = mealWithDay.strIngredient7;
+        this.strIngredient8 = mealWithDay.strIngredient8;
+        this.strIngredient9 = mealWithDay.strIngredient9;
+        this.strIngredient10 = mealWithDay.strIngredient10;
+        this.strIngredient11 = mealWithDay.strIngredient11;
+        this.strIngredient12 = mealWithDay.strIngredient12;
+        this.strIngredient13 = mealWithDay.strIngredient13;
+        this.strIngredient14 = mealWithDay.strIngredient14;
+        this.strIngredient15 = mealWithDay.strIngredient15;
+        this.strIngredient16 = mealWithDay.strIngredient16;
+        this.strIngredient17 = mealWithDay.strIngredient17;
+        this.strIngredient18 = mealWithDay.strIngredient18;
+        this.strIngredient19 = mealWithDay.strIngredient19;
+        this.strIngredient20 = mealWithDay.strIngredient20;
+        this.strMeasure1 = mealWithDay.strMeasure1;
+        this.strMeasure2 = mealWithDay.strMeasure2;
+        this.strMeasure3 = mealWithDay.strMeasure3;
+        this.strMeasure4 = mealWithDay.strMeasure4;
+        this.strMeasure5 = mealWithDay.strMeasure5;
+        this.strMeasure6 = mealWithDay.strMeasure6;
+        this.strMeasure7 = mealWithDay.strMeasure7;
+        this.strMeasure8 = mealWithDay.strMeasure8;
+        this.strMeasure9 = mealWithDay.strMeasure9;
+        this.strMeasure10 = mealWithDay.strMeasure10;
+        this.strMeasure11 = mealWithDay.strMeasure11;
+        this.strMeasure12 = mealWithDay.strMeasure12;
+        this.strMeasure13 = mealWithDay.strMeasure13;
+        this.strMeasure14 = mealWithDay.strMeasure14;
+        this.strMeasure15 = mealWithDay.strMeasure15;
+        this.strMeasure16 = mealWithDay.strMeasure16;
+        this.strSource = mealWithDay.strSource;
+    }
     public Meal transferToMeal(MealWithDay meal) {
         Meal res = new Meal();
         res.setIdMeal(meal.getIdMeal());
