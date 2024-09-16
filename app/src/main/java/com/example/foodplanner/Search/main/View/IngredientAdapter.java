@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Ingredients;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
 
@@ -22,9 +24,11 @@ import java.util.List;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     List<Ingredients> ingredients;
     Context context;
-    public IngredientAdapter(List<Ingredients>ingredients, Context context){
+    FragmentManager fm;
+    public IngredientAdapter(List<Ingredients>ingredients, Context context, FragmentManager fm) {
         this.ingredients = ingredients;
         this.context = context;
+        this.fm = fm;
     }
     public void setCategories(List<Ingredients> ingredients) {
         this.ingredients = ingredients;
@@ -39,13 +43,19 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(ingredients.get(position). getStrIngredient());
-        Glide.with(context).load("https://www.themealdb.com/images/ingredients/" + ingredients.get(position).getStrIngredient() + "-Small.png").placeholder(R.drawable.egypt).into(holder.imageView);
+        Glide.with(context).load("https://www.themealdb.com/images/ingredients/" + ingredients.get(position).getStrIngredient() + "-Small.png").placeholder(R.drawable.foodplaceholder).into(holder.imageView);
         holder.button.setOnClickListener(v -> {
-            SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
-                    SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
-                            new TypeSearch(ingredients.get(position).getStrIngredient(), TypeSearch.Type.INGREDIENTS)
-                    );
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (SearchFragment.isInternetAvailable) {
+                SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
+                        SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
+                                new TypeSearch(ingredients.get(position).getStrIngredient(), TypeSearch.Type.INGREDIENTS)
+                        );
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "No Internet");
+            }
+
         });
     }
 public void updatedata(List<Ingredients> ingredients) {

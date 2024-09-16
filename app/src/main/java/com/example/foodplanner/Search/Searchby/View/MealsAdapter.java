@@ -10,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.R;
 
 import java.util.List;
@@ -23,9 +25,11 @@ import java.util.List;
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> {
     List<Meal> meals;
     Context context;
-    public MealsAdapter(List<Meal>meals, Context context){
+    FragmentManager fm;
+    public MealsAdapter(List<Meal>meals, Context context, FragmentManager fm) {
         this.meals = meals;
         this.context = context;
+        this.fm = fm;
     }
     @NonNull
     @Override
@@ -39,9 +43,15 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
         holder.title.setText(meals.get(position). getStrMeal());
         Glide.with(context).load(meals.get(position).getStrMealThumb()).into(holder.imageView);
         holder.button.setOnClickListener(v -> {
-            SearchByFragmentDirections.ActionSearchByFragmentToDetailsFragment action =
-                    SearchByFragmentDirections.actionSearchByFragmentToDetailsFragment(meals.get(position).getIdMeal(),null);
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (SearchByFragment.isInternetAvailable) {
+                SearchByFragmentDirections.ActionSearchByFragmentToDetailsFragment action =
+                        SearchByFragmentDirections.actionSearchByFragmentToDetailsFragment(meals.get(position).getIdMeal(),null);
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "No Internet");
+            }
+
         });
     }
 @SuppressLint("NotifyDataSetChanged")

@@ -70,10 +70,9 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
                 searchByView.withTypingIngredient()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .flatMapIterable(e-> e)
                         .subscribe(e -> {
-                            if (e.equals("null"))
-                                searchByView.showErrorMsg("No Meals Found");
-                            else
+
                                 reposatery.fetchMealsByIngredient(e)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
@@ -121,11 +120,11 @@ public class SearchByPresenterImpl implements SearchByPresenter, MealsCallBack {
     }
 
     @Override
-    public Single<String> autoCompleteIngredient(String query) {
+    public Single<List<String>> autoCompleteIngredient(String query) {
 
         return Observable.fromIterable(SearchFragment.ingredients)
                 .map(Ingredients::getStrIngredient)
-                .filter(country -> country.toLowerCase().startsWith(query.toLowerCase())).first("null");
+                .filter(country -> country.toLowerCase().contains(query.toLowerCase())).toList();
     }
 
     @Override

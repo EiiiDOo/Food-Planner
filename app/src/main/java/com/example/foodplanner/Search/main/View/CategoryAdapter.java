@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
 
@@ -22,9 +24,11 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     List<Categories> Categories;
     Context context;
-    public CategoryAdapter(List<Categories>Categories, Context context){
+    FragmentManager fm;
+    public CategoryAdapter(List<Categories>Categories, Context context, FragmentManager fm) {
         this.Categories = Categories;
         this.context = context;
+        this.fm = fm;
     }
     public void setCategories(List<Categories> Categories) {
         this.Categories = Categories;
@@ -41,11 +45,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.title.setText(Categories.get(position). getStrCategory());
         Glide.with(context).load(Categories.get(position).getStrCategoryThumb()).into(holder.imageView);
         holder.button.setOnClickListener(v -> {
-            SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
-                    SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
-                            new TypeSearch(Categories.get(position).getStrCategory(), TypeSearch.Type.CATEGORIES)
-                    );
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (SearchFragment.isInternetAvailable) {
+                SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
+                        SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
+                                new TypeSearch(Categories.get(position).getStrCategory(), TypeSearch.Type.CATEGORIES)
+                        );
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "No Internet");
+            }
+
         });
     }
 public void updatedata(List<Categories> Categories) {

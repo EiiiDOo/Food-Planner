@@ -20,6 +20,8 @@ import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Ingredients;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.NetworkUtil;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
@@ -28,6 +30,8 @@ import com.example.foodplanner.Search.main.Presenter.SearchPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class SearchFragment extends Fragment implements SearchInterfaceView {
     public static List<Ingredients> ingredients = new ArrayList<>();
@@ -39,11 +43,17 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
     MealAdapter mealAdapter;
     ProgressBar progressBar;
     TextView backGroundProgressBar;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    static Boolean isInternetAvailable = false;
+
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
 
         progressBar = view.findViewById(R.id.progressBar2);
         backGroundProgressBar = view.findViewById(R.id.backProgrespar);
@@ -52,10 +62,10 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
         rvCountry = view.findViewById(R.id.rvCountryInSearchBy);
         rvIngredient = view.findViewById(R.id.rvIngredientInSearchBy);
 
-        mealAdapter = new MealAdapter(new ArrayList<>(), getContext());
-        categoryAdapter = new CategoryAdapter(new ArrayList<>(), getContext());
-        countryAdapter = new CountryAdapter(new ArrayList<>(), getContext());
-        ingredientAdapter = new IngredientAdapter(new ArrayList<>(), getContext());
+        mealAdapter = new MealAdapter(new ArrayList<>(), getContext(), getChildFragmentManager());
+        categoryAdapter = new CategoryAdapter(new ArrayList<>(), getContext(),getChildFragmentManager());
+        countryAdapter = new CountryAdapter(new ArrayList<>(), getContext(),getChildFragmentManager());
+        ingredientAdapter = new IngredientAdapter(new ArrayList<>(), getContext(),getChildFragmentManager());
 
         rvMeal.setAdapter(mealAdapter);
         rvCategory.setAdapter(categoryAdapter);
@@ -63,6 +73,25 @@ public class SearchFragment extends Fragment implements SearchInterfaceView {
         rvIngredient.setAdapter(ingredientAdapter);
 
         new SearchPresenterImpl(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        compositeDisposable.add(NetworkUtil.observeNetworkConnectivity(requireContext())
+                .distinctUntilChanged().subscribe(e -> {
+                    isInternetAvailable = e;
+                    if (!e) {
+                        NoInternetDialog d = new NoInternetDialog();
+                        d.show(getChildFragmentManager(), null);
+                    }
+                }));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
     }
 
     @Override

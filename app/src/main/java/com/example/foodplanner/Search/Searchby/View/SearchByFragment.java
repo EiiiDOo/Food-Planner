@@ -30,6 +30,8 @@ import com.example.foodplanner.FireBase.FireBaseRemoteDatasourceImpl;
 import com.example.foodplanner.Model.AllCountries;
 import com.example.foodplanner.Model.Country;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.NetworkUtil;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsfavLocalDataSourceImpl;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Model.TypeSearch;
@@ -45,6 +47,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 
 public class SearchByFragment extends Fragment implements SearchByView {
@@ -56,7 +59,9 @@ public class SearchByFragment extends Fragment implements SearchByView {
     SearchByPresenter searchByPresenter;
     TypeSearch typeSearch;
     ProgressBar progressBar;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     TextView backGroundProgressBar, typeTitle;
+    static Boolean isInternetAvailable = false;
 
 
     @Override
@@ -79,7 +84,7 @@ public class SearchByFragment extends Fragment implements SearchByView {
         backGroundProgressBar = view.findViewById(R.id.backProgrespar);
         recyclerView = view.findViewById(R.id.countryRecyclerView);
         searchView = view.findViewById(R.id.searchView);
-        adapter = new MealsAdapter(new ArrayList<>(), view.getContext());
+        adapter = new MealsAdapter(new ArrayList<>(), view.getContext(), getChildFragmentManager());
         searchView.clearFocus();
         searchByPresenter = new SearchByPresenterImpl(typeSearch, ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
 
@@ -90,6 +95,26 @@ public class SearchByFragment extends Fragment implements SearchByView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_searchby, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        compositeDisposable.add(NetworkUtil.observeNetworkConnectivity(requireContext())
+                .distinctUntilChanged().subscribe(e -> {
+                    isInternetAvailable = e;
+                    if (!e) {
+                        NoInternetDialog d = new NoInternetDialog();
+                        d.show(getChildFragmentManager(), null);
+                    }
+
+                }));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
     }
 
     @Override
@@ -160,8 +185,8 @@ public class SearchByFragment extends Fragment implements SearchByView {
     }
 
     @Override
-    public Observable<String> withTypingIngredient() {
-        Observable<String> observable = Observable.create(emitter -> {
+    public Observable<List<String>> withTypingIngredient() {
+        Observable<List<String>> observable = Observable.create(emitter -> {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override

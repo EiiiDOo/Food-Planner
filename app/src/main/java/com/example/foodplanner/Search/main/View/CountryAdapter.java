@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.Model.Country;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
 
@@ -21,9 +23,11 @@ import java.util.List;
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHolder> {
     List<Country> countryList;
     Context context;
-    public CountryAdapter(List<Country>countryList, Context context){
+    FragmentManager fm;
+    public CountryAdapter(List<Country>countryList, Context context, FragmentManager fm) {
         this.countryList = countryList;
         this.context = context;
+        this.fm = fm;
     }
     public void setCountries(List<Country> Countries) {
         this.countryList = Countries;
@@ -43,11 +47,17 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageResource(countryList.get(position).getImageResourceId());
         holder.button.setOnClickListener(v -> {
-            SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
-                    SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
-                            new TypeSearch(countryList.get(position).getCountryName(), TypeSearch.Type.COUNTRIES)
-                    );
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (SearchFragment.isInternetAvailable) {
+                SearchFragmentDirections.ActionNavigationSearchToSearchByFragment action =
+                        SearchFragmentDirections.actionNavigationSearchToSearchByFragment(
+                                new TypeSearch(countryList.get(position).getCountryName(), TypeSearch.Type.COUNTRIES)
+                        );
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "No Internet");
+            }
+
         });
 
     }

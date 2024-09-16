@@ -13,6 +13,6 @@ public interface SearchByView {
     void getTitle(String title);
     Observable<String> withTypingMeal();
     Observable<String> withTypingCountry();
-    Observable<String> withTypingIngredient();
+    Observable<List<String>> withTypingIngredient();
     Observable<String> withTypingCategory();
 }
