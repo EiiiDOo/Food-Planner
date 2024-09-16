@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.Authorization.Signin.Presenter.SigninPresenterImpl;
@@ -29,6 +31,8 @@ public class SigninFragment extends Fragment implements  SigninView {
     TextInputEditText email,pass;
     Button btnLogin;
     NavController navController;
+    ProgressBar progressBar;
+    TextView backGround;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class SigninFragment extends Fragment implements  SigninView {
         email = view.findViewById(R.id.editTextEmailIn);
         pass = view.findViewById(R.id.editTextPasswordIn);
         btnLogin = view.findViewById(R.id.btnLoginIn);
+        backGround = view.findViewById(R.id.textView10);
+        progressBar = view.findViewById(R.id.progressbarWelcome);
         btnLogin.setOnClickListener(v -> {
 //            startActivity(new Intent(getActivity(), MainActivity.class));
             if(!(inPresenter.isEmail(email.getText().toString())) || (email.getText().toString().isEmpty())){
@@ -50,6 +56,8 @@ public class SigninFragment extends Fragment implements  SigninView {
                 pass.setError("At least 6 numbers");
             }
             inPresenter.signin(email.getText().toString(), pass.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
+            backGround.setVisibility(View.VISIBLE);
         });
     }
 
@@ -61,8 +69,8 @@ public class SigninFragment extends Fragment implements  SigninView {
     }
 
     @Override
-    public void signinsuccess() {
-        Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
+    public void signinsuccess(String s) {
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
         SharedPreferences sp = getActivity().getSharedPreferences("userdetails", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor  = sp.edit();
         editor.putString("user",inPresenter.getUid());
@@ -74,5 +82,7 @@ public class SigninFragment extends Fragment implements  SigninView {
     @Override
     public void signinFailure(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        backGround.setVisibility(View.GONE);
     }
 }

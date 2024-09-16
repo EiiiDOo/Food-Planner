@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.Authorization.SignUp.Presenter.SignUpPresenterImpl;
@@ -30,6 +32,8 @@ public class SignUpFragment extends Fragment implements SignUpView {
     SignUpPresenterInterface upPresenter = SignUpPresenterImpl.getInstance(ReposateryImpl.getInstance(RemoteDataSourceImpl.getInstance(), FireBaseRemoteDatasourceImpl.getInstance(), MealsfavLocalDataSourceImpl.getInstance(this.getContext())), this);
     TextInputEditText email, pass, confirmPass;
     Button signUp;
+    ProgressBar progressBar;
+    TextView backGround;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class SignUpFragment extends Fragment implements SignUpView {
         pass = view.findViewById(R.id.editTextPasswordUp);
         confirmPass = view.findViewById(R.id.editTextConfirmPassword);
         signUp = view.findViewById(R.id.btnSignUpUp);
+        backGround = view.findViewById(R.id.textView10);
+        progressBar = view.findViewById(R.id.progressbarWelcome);
         signUp.setOnClickListener(v -> {
             if (!(upPresenter.isEmail(email.getText().toString())) || (email.getText().toString().isEmpty())) {
                 email.setError("Wrong Email");
@@ -52,6 +58,8 @@ public class SignUpFragment extends Fragment implements SignUpView {
                 confirmPass.setError("Wrong Pass");
             }
             upPresenter.signUp(email.getText().toString(), pass.getText().toString(), confirmPass.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
+            backGround.setVisibility(View.VISIBLE);
 
         });
     }
@@ -63,8 +71,8 @@ public class SignUpFragment extends Fragment implements SignUpView {
     }
 
     @Override
-    public void signUpsuccess() {
-        Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
+    public void signUpsuccess(String s) {
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
         SharedPreferences sp = getActivity().getSharedPreferences("userdetails", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor  = sp.edit();
         editor.putString("user",upPresenter.getUid());
@@ -76,5 +84,7 @@ public class SignUpFragment extends Fragment implements SignUpView {
     @Override
     public void signUpFailure(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        backGround.setVisibility(View.GONE);
     }
 }

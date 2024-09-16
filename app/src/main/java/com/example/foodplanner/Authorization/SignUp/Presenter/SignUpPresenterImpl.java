@@ -40,8 +40,8 @@ public class SignUpPresenterImpl implements SignUpPresenterInterface, FireBaseCa
     }
 
     @Override
-    public void onSuccess() {
-        signUpView.signUpsuccess();
+    public void onSuccess(String msg) {
+        signUpView.signUpsuccess(msg);
     }
 
     @Override

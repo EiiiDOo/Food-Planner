@@ -57,12 +57,13 @@ public class SigninPresenterImpl implements SigninPresenterInterface, FireBaseCa
     }
 
     @Override
-    public void onSuccess() {
-        signinView.signinsuccess();
+    public void onSuccess(String msg) {
+        signinView.signinsuccess(msg);
     }
 
     @Override
     public void onFailure(String errorMsg) {
         signinView.signinFailure(errorMsg);
     }
+
 }
