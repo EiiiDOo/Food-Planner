@@ -13,8 +13,8 @@ public interface ProfileInterface {
      void setDay5(List<MealWithDay> mealWithDays);
      void setDay6(List<MealWithDay> mealWithDays);
      void setDay7(List<MealWithDay> mealWithDays);
-     void setDay(List<MealWithDay> mealWithDays,String day);
      void showErrorMsg(String msg);
+     void showSuccessMsg(String msg);
      void finish();
 
      void deleteed(MealWithDay mealWithDay);

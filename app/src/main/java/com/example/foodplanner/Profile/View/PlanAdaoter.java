@@ -39,7 +39,7 @@ public class PlanAdaoter extends RecyclerView.Adapter<PlanAdaoter.Viewholder> {
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new Viewholder(inflater.inflate(R.layout.mealforfavfragment, parent, false));
+        return new Viewholder(inflater.inflate(R.layout.mealforplan, parent, false));
     }
 
     @Override

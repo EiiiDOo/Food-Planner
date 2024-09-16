@@ -1,40 +1,52 @@
 package com.example.foodplanner.Profile.Presenter;
 
 
+import android.util.Log;
+import android.util.Pair;
+
 import com.example.foodplanner.FireBase.FireBaseCallback;
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.Reposatery.ReposateryImpl;
 import com.example.foodplanner.Profile.View.ProfileInterface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class ProfilePresenterImpl implements ProfilePresenter , FireBaseCallback {
+public class ProfilePresenterImpl implements ProfilePresenter, FireBaseCallback {
     ReposateryImpl reposatery;
     ProfileInterface profileInterface;
     CompositeDisposable compositeDisposable;
+    private static  ProfilePresenterImpl instance = null;
 
 
-    public ProfilePresenterImpl( ReposateryImpl reposatery, ProfileInterface profileInterface) {
+    public ProfilePresenterImpl(ReposateryImpl reposatery, ProfileInterface profileInterface) {
         this.reposatery = reposatery;
         this.profileInterface = profileInterface;
         compositeDisposable = new CompositeDisposable();
         this.profileInterface.setEmail(getEmail());
 
-
         getMealWithDay();
     }
-    public String getEmail(){return reposatery.getFireBaseUser().getEmail();}
+
+
+    public String getEmail() {
+        return reposatery.getFireBaseUser().getEmail();
+    }
 
     @Override
     public void clear() {
-//        compositeDisposable.clear();
+        compositeDisposable.clear();
     }
 
     @Override
     public void logout() {
-        reposatery.signOut(this);
+        reposatery.signOut();
     }
 
     @Override
@@ -42,7 +54,11 @@ public class ProfilePresenterImpl implements ProfilePresenter , FireBaseCallback
         compositeDisposable.add(reposatery.deleteMealPlan(mealWithDay)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {profileInterface.deleteed(mealWithDay);}, e -> {profileInterface.showErrorMsg(e.getMessage());}));
+                .subscribe(() -> {
+//                    profileInterface.deleteed(mealWithDay);
+                }, e -> {
+                    profileInterface.showErrorMsg(e.getMessage());
+                }));
     }
 
     @Override
@@ -51,20 +67,59 @@ public class ProfilePresenterImpl implements ProfilePresenter , FireBaseCallback
     }
 
     @Override
-    public void getMealPlanWithIdday() {
+    public void backupAllMeals(FireBaseCallback callback) {
+        compositeDisposable.add(Flowable.zip(
+                reposatery.getFavMeals(reposatery.getFireBaseUser().getUid()),
+                reposatery.getMealPlan(reposatery.getFireBaseUser().getUid()),
+                (v,p) -> {
+                    return new Pair(v, p);
+                }
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+            e -> reposatery.backupAllMeals((ArrayList<Meal>) e.first,
+                    (ArrayList<MealWithDay>) e.second,
+                    callback)
+        ));
 
     }
 
-    public String getUserId(){return reposatery.getFireBaseUser().getUid();}
+    @Override
+    public void downloadAll(FireBaseCallback callback) {
+        reposatery.downloadFavouriteMeals(callback,this);
+        reposatery.downloadPlanMeals(callback,this);
+
+    }
+
+    @Override
+    public void restoreAllFavouriteMeals(List<Meal> meals) {
+        compositeDisposable.add(reposatery.onSuccessDownloadFavouriteMeals(meals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                () -> profileInterface.showSuccessMsg("Downloaded Successfully"), e -> profileInterface.showErrorMsg(e.getMessage())
+        ));
+    }
+
+    @Override
+    public void restoreAllPlanMeals(List<MealWithDay> meals) {
+        compositeDisposable.add(reposatery.onSuccessDownloadPlanMeals(meals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                () -> profileInterface.showSuccessMsg("Downloaded Successfully"), e -> profileInterface.showErrorMsg(e.getMessage())
+        ));
+    }
+
+
+    public String getUserId() {
+        return reposatery.getFireBaseUser().getUid();
+    }
 
 
     void getMealWithDay() {
         compositeDisposable.add(reposatery.getMealPlan(getUserId(), "1")
                 .subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.single())
+                .observeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        e -> profileInterface.setDay1(e),
+
+                        e -> {
+                            Log.d("said", "said: " + e.size());
+                            profileInterface.setDay1(e);
+                        },
                         e -> profileInterface.showErrorMsg(e.getMessage())
                 ));
         compositeDisposable.add(reposatery.getMealPlan(getUserId(), "2")
@@ -116,54 +171,11 @@ public class ProfilePresenterImpl implements ProfilePresenter , FireBaseCallback
                         e -> profileInterface.showErrorMsg(e.getMessage())
                 ));
 
-
-//        compositeDisposable.add(reposatery.getMealPlan(getUserId())
-//                .subscribeOn(Schedulers.io())
-//                        .doOnNext(e -> Log.d("ProfilePresenterImpl", "getMealWithDay: "+e.size()))
-//                .flatMap(e->  Flowable.fromIterable(e))
-//                        .doOnNext(e -> Log.d("ProfilePresenterImpl", "getMealWithDay: before subscribe"+e.getDay()))
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(mealWithDays -> {
-//                    Log.d("ProfileFragment", "getMealWithDay: emitted"+mealWithDays.getDay());
-//                    switch (mealWithDays.getDay()) {
-//                        case "1":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:1 "+mealWithDays.getDay());
-//                            profileInterface.setDay1(mealWithDays);
-//                            break;
-//                        case "2":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:2 "+mealWithDays.getDay());
-//                            profileInterface.setDay2(mealWithDays);
-//                            break;
-//                        case "3":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:3 "+mealWithDays.getDay());
-//                            profileInterface.setDay3(mealWithDays);
-//                            break;
-//                        case "4":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:4 "+mealWithDays.getDay());
-//                            profileInterface.setDay4(mealWithDays);
-//                            break;
-//                        case "5":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:5 "+mealWithDays.getDay());
-//                            profileInterface.setDay5(mealWithDays);
-//                            break;
-//                        case "6":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:6 "+mealWithDays.getDay());
-//                            profileInterface.setDay6(mealWithDays);
-//                            break;
-//                        case "7":
-//                            Log.d("ProfilePresenterImpl", "getMealWithDay:7 "+mealWithDays.getDay());
-//                            profileInterface.setDay7(mealWithDays);
-//                            break;
-//                    }
-//                    }, e -> {profileInterface.showErrorMsg(e.getMessage());}));
-//    }
-
-
     }
 
     @Override
-    public void onSuccess() {
-        profileInterface.showErrorMsg("signed out successfully");
+    public void onSuccess(String msg) {
+        profileInterface.showSuccessMsg(msg);
         profileInterface.finish();
 
     }
