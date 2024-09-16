@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Search.Searchby.View.SearchByFragmentDirections;
@@ -24,10 +26,12 @@ import java.util.List;
 public class MayLikeAdapter extends RecyclerView.Adapter<MayLikeAdapter.MealView> {
     List<Meal> Meal;
     Context context;
+    FragmentManager fm;
 
-    public MayLikeAdapter(List<Meal> Meal, Context context) {
+    public MayLikeAdapter(List<Meal> Meal, Context context, FragmentManager fm) {
         this.Meal = Meal;
         this.context = context;
+        this.fm = fm;
     }
 
     public void setMeal(List<Meal> Meal) {
@@ -46,9 +50,15 @@ public class MayLikeAdapter extends RecyclerView.Adapter<MayLikeAdapter.MealView
     holder.name.setText(Meal.get(position).getStrMeal());
     Glide.with(context).load(Meal.get(position).getStrMealThumb()).override(190,160).into(holder.image);
     holder.button.setOnClickListener(v -> {
-        HomeFragmentDirections.ActionNavigationHomeToDetailsFragment action =
-                HomeFragmentDirections.actionNavigationHomeToDetailsFragment(Meal.get(position).getIdMeal(), null);
-        Navigation.findNavController(holder.itemView).navigate(action);
+        if (HomeFragment.internetFlag){
+            HomeFragmentDirections.ActionNavigationHomeToDetailsFragment action =
+                    HomeFragmentDirections.actionNavigationHomeToDetailsFragment(Meal.get(position).getIdMeal(), null);
+            Navigation.findNavController(holder.itemView).navigate(action);
+        }else {
+            NoInternetDialog d = new NoInternetDialog();
+            d.show(fm, "dialog");
+        }
+
     });
         Log.d("Counter", "onBindViewHolder: "+position);
     }

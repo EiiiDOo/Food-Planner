@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
 import com.example.foodplanner.R;
 
@@ -24,10 +26,12 @@ import java.util.List;
 public class CategoryAdapterNew extends RecyclerView.Adapter<CategoryAdapterNew.ViewHolder> {
     List<Categories> Categories;
     Context context;
+    FragmentManager fm;
 
-    public CategoryAdapterNew(List<Categories> Categories, Context context) {
+    public CategoryAdapterNew(List<Categories> Categories, Context context, FragmentManager fm) {
         this.Categories = Categories;
         this.context = context;
+        this.fm = fm;
     }
 
     public void setCategories(List<Categories> Categories) {
@@ -46,9 +50,15 @@ public class CategoryAdapterNew extends RecyclerView.Adapter<CategoryAdapterNew.
         holder.name.setText(Categories.get(position).getStrCategory());
         Glide.with(context).load(Categories.get(position).getStrCategoryThumb()).placeholder(R.drawable.foodplaceholder).into(holder.image);
         holder.button.setOnClickListener(v -> {
-            HomeFragmentDirections.ActionNavigationHomeToSearchByFragment action =
-                    HomeFragmentDirections.actionNavigationHomeToSearchByFragment(new TypeSearch(Categories.get(position).getStrCategory(), TypeSearch.Type.CATEGORIES));
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (HomeFragment.internetFlag){
+                HomeFragmentDirections.ActionNavigationHomeToSearchByFragment action =
+                        HomeFragmentDirections.actionNavigationHomeToSearchByFragment(new TypeSearch(Categories.get(position).getStrCategory(), TypeSearch.Type.CATEGORIES));
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "dialog");
+            }
+
         });
         Log.d("Counter", "onBindViewHolder: "+position);
     }

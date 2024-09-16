@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.Country;
+import com.example.foodplanner.Model.NoInternetDialog;
 import com.example.foodplanner.Model.TypeSearch;
+import com.example.foodplanner.Profile.View.ProfileFragment;
 import com.example.foodplanner.R;
 
 import java.util.List;
@@ -24,10 +27,12 @@ import java.util.List;
 public class CountryAdapterNew extends RecyclerView.Adapter<CountryAdapterNew.CountryViewHolder> {
     List<Country> Country;
     Context context;
+    FragmentManager fm;
 
-    public CountryAdapterNew(List<Country> Country, Context context) {
+    public CountryAdapterNew(List<Country> Country, Context context, FragmentManager fm) {
         this.Country = Country;
         this.context = context;
+        this.fm = fm;
     }
 
     public void setCountry(List<Country> Country) {
@@ -49,11 +54,17 @@ public class CountryAdapterNew extends RecyclerView.Adapter<CountryAdapterNew.Co
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
         holder.button.setOnClickListener(v -> {
-            HomeFragmentDirections.ActionNavigationHomeToSearchByFragment action =
-                    HomeFragmentDirections.actionNavigationHomeToSearchByFragment(
-                            new TypeSearch(Country.get(position).getCountryName(), TypeSearch.Type.COUNTRIES)
-                    );
-            Navigation.findNavController(holder.itemView).navigate(action);
+            if (HomeFragment.internetFlag) {
+                HomeFragmentDirections.ActionNavigationHomeToSearchByFragment action =
+                        HomeFragmentDirections.actionNavigationHomeToSearchByFragment(
+                                new TypeSearch(Country.get(position).getCountryName(), TypeSearch.Type.COUNTRIES)
+                        );
+                Navigation.findNavController(holder.itemView).navigate(action);
+            }else {
+                NoInternetDialog d = new NoInternetDialog();
+                d.show(fm, "dialog");
+            }
+
         });
         Glide.with(context).load(Country.get(position).getImageResourceId()).into(holder.image);
         Log.d("Counter", "onBindViewHolder: "+position);

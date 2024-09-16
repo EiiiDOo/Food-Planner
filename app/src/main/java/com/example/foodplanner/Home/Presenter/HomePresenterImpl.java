@@ -23,14 +23,6 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
     public HomePresenterImpl(ReposateryImpl repo, HomeView homeView) {
         this.homeView = homeView;
         this.repo = repo;
-        repo.fetchRandomMeals().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e->{
-
-                    homeView.showrandMeal(e.getMeals().get(0));
-                },e->{
-
-                    homeView.showErrorMsg(e.getMessage());
-                });
         repo.fetchCategories().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(e->{
 
@@ -73,5 +65,17 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
     public String getRandomLowercaseLetter() {
         Random random = new Random();
         return String.valueOf((char) (random.nextInt(26) + 'a'));
+    }
+
+    @Override
+    public void fetchRandomMeal() {
+        repo.fetchRandomMeals().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e->{
+                    homeView.showrandMeal(e.getMeals().get(0));
+                    homeView.saveRandomMeal(e.getMeals().get(0));
+                },e->{
+
+                    homeView.showErrorMsg(e.getMessage());
+                });
     }
 }
