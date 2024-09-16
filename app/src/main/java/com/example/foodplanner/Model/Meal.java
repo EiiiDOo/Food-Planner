@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -14,7 +16,11 @@ public class Meal implements Serializable {
     @NonNull
     String userId, idMeal;
 
-    String strMeal, strCategory, strArea, strInstructions, strMealThumb,day;
+    String strMeal, strCategory, strArea, strInstructions, strMealThumb, day, strYoutube, strIngredient1, strIngredient2, strIngredient3,
+            strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11,
+            strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19,
+            strIngredient20, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+            strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20, strSource;
 
     public void setDay(String day) {
         this.day = day;
@@ -24,15 +30,11 @@ public class Meal implements Serializable {
         return day;
     }
 
-    String strYoutube, strIngredient1, strIngredient2, strIngredient3,
-            strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11,
-            strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19,
-            strIngredient20,strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10,
-            strMeasure11,strMeasure12,strMeasure13,strMeasure14,strMeasure15,strMeasure16,strMeasure17,strMeasure18,strMeasure19,strMeasure20,strSource;
-@Ignore
+    @Ignore
     public Meal() {
 
     }
+
     public Meal(@NonNull String userId, @NonNull String idMeal, String strMeal, String strCategory, String strArea, String strInstructions, String strMealThumb, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12, String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17, String strMeasure18, String strMeasure19, String strMeasure20, String strSource) {
         this.userId = userId;
         this.idMeal = idMeal;
@@ -105,6 +107,16 @@ public class Meal implements Serializable {
         res.setStrIngredient8(meal.getStrIngredient8());
         res.setStrIngredient9(meal.getStrIngredient9());
         res.setStrIngredient10(meal.getStrIngredient10());
+        res.setStrIngredient11(meal.getStrIngredient11());
+        res.setStrIngredient12(meal.getStrIngredient12());
+        res.setStrIngredient13(meal.getStrIngredient13());
+        res.setStrIngredient14(meal.getStrIngredient14());
+        res.setStrIngredient15(meal.getStrIngredient15());
+        res.setStrIngredient16(meal.getStrIngredient16());
+        res.setStrIngredient17(meal.getStrIngredient17());
+        res.setStrIngredient18(meal.getStrIngredient18());
+        res.setStrIngredient19(meal.getStrIngredient19());
+        res.setStrIngredient20(meal.getStrIngredient20());
         res.setStrMeasure1(meal.getStrMeasure1());
         res.setStrMeasure2(meal.getStrMeasure2());
         res.setStrMeasure3(meal.getStrMeasure3());
@@ -115,6 +127,16 @@ public class Meal implements Serializable {
         res.setStrMeasure8(meal.getStrMeasure8());
         res.setStrMeasure9(meal.getStrMeasure9());
         res.setStrMeasure10(meal.getStrMeasure10());
+        res.setStrMeasure11(meal.getStrMeasure11());
+        res.setStrMeasure12(meal.getStrMeasure12());
+        res.setStrMeasure13(meal.getStrMeasure13());
+        res.setStrMeasure14(meal.getStrMeasure14());
+        res.setStrMeasure15(meal.getStrMeasure15());
+        res.setStrMeasure16(meal.getStrMeasure16());
+        res.setStrMeasure17(meal.getStrMeasure17());
+        res.setStrMeasure18(meal.getStrMeasure18());
+        res.setStrMeasure19(meal.getStrMeasure19());
+        res.setStrMeasure20(meal.getStrMeasure20());
         res.setDay(meal.getDay());
         return res;
     }
@@ -396,15 +418,16 @@ public class Meal implements Serializable {
     }
 
 
+    @NonNull
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(@NonNull String userId) {
         this.userId = userId;
     }
 
-    public List<Ingredients> getIngredients() {
+    public List<Ingredients> IngredientsReflect() {
         List<Ingredients> ingredients = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
 
@@ -421,11 +444,10 @@ public class Meal implements Serializable {
                 }
             }
         }
-
         return ingredients;
     }
 
-    public List<String> getMeasures() {
+    public List<String> MeasuresReflect() {
         List<String> ingredients = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
 
@@ -434,9 +456,8 @@ public class Meal implements Serializable {
                 try {
                     field.setAccessible(true);
                     String value = (String) field.get(this);
-                    if (value != null) {
+                    if (value != null)
                         ingredients.add(value);
-                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -471,7 +492,8 @@ public class Meal implements Serializable {
     }
 
     public String getStrYoutube() {
-        return strYoutube;
+        String youtubeID = strYoutube.substring(strYoutube.lastIndexOf("=") + 1);
+        return String.format("https://www.youtube.com/embed/%s", youtubeID);
     }
 
     public String getStrIngredient1() {
@@ -554,4 +576,9 @@ public class Meal implements Serializable {
         return strIngredient20;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

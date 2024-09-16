@@ -3,19 +3,18 @@ package com.example.foodplanner.Model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-@Entity(tableName = "meal_plan_table", primaryKeys = {"userId", "idMeal","day"})
+
+import com.google.gson.Gson;
+
+@Entity(tableName = "meal_plan_table", primaryKeys = {"userId", "idMeal", "day"})
 public class MealWithDay {
     @NonNull
-    String userId;
-    @NonNull
-    String idMeal;
-    @NonNull
-    String day;
-    String strMeal, strCategory, strArea, strInstructions, strMealThumb,strYoutube, strIngredient1, strIngredient2, strIngredient3,
+    String userId,idMeal, day;
+    String strMeal, strCategory, strArea, strInstructions, strMealThumb, strYoutube, strIngredient1, strIngredient2, strIngredient3,
             strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11,
             strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19,
-            strIngredient20,strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10,
-            strMeasure11,strMeasure12,strMeasure13,strMeasure14,strMeasure15,strMeasure16,strMeasure17,strMeasure18,strMeasure19,strMeasure20,strSource;
+            strIngredient20, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+            strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20, strSource;
 
     public MealWithDay() {
     }
@@ -25,7 +24,6 @@ public class MealWithDay {
         this.userId = mealWithDay.userId;
         this.idMeal = mealWithDay.idMeal;
         this.day = mealWithDay.day;
-
         this.strMeal = mealWithDay.strMeal;
         this.strCategory = mealWithDay.strCategory;
         this.strArea = mealWithDay.strArea;
@@ -68,8 +66,13 @@ public class MealWithDay {
         this.strMeasure14 = mealWithDay.strMeasure14;
         this.strMeasure15 = mealWithDay.strMeasure15;
         this.strMeasure16 = mealWithDay.strMeasure16;
+        this.strMeasure17 = mealWithDay.strMeasure17;
+        this.strMeasure18 = mealWithDay.strMeasure18;
+        this.strMeasure19 = mealWithDay.strMeasure19;
+        this.strMeasure20 = mealWithDay.strMeasure20;
         this.strSource = mealWithDay.strSource;
     }
+
     public Meal transferToMeal(MealWithDay meal) {
         Meal res = new Meal();
         res.setIdMeal(meal.getIdMeal());
@@ -90,6 +93,16 @@ public class MealWithDay {
         res.setStrIngredient8(meal.getStrIngredient8());
         res.setStrIngredient9(meal.getStrIngredient9());
         res.setStrIngredient10(meal.getStrIngredient10());
+        res.setStrIngredient11(meal.getStrIngredient11());
+        res.setStrIngredient12(meal.getStrIngredient12());
+        res.setStrIngredient13(meal.getStrIngredient13());
+        res.setStrIngredient14(meal.getStrIngredient14());
+        res.setStrIngredient15(meal.getStrIngredient15());
+        res.setStrIngredient16(meal.getStrIngredient16());
+        res.setStrIngredient17(meal.getStrIngredient17());
+        res.setStrIngredient18(meal.getStrIngredient18());
+        res.setStrIngredient19(meal.getStrIngredient19());
+        res.setStrIngredient20(meal.getStrIngredient20());
         res.setStrMeasure1(meal.getStrMeasure1());
         res.setStrMeasure2(meal.getStrMeasure2());
         res.setStrMeasure3(meal.getStrMeasure3());
@@ -100,6 +113,16 @@ public class MealWithDay {
         res.setStrMeasure8(meal.getStrMeasure8());
         res.setStrMeasure9(meal.getStrMeasure9());
         res.setStrMeasure10(meal.getStrMeasure10());
+        res.setStrMeasure11(meal.getStrMeasure11());
+        res.setStrMeasure12(meal.getStrMeasure12());
+        res.setStrMeasure13(meal.getStrMeasure13());
+        res.setStrMeasure14(meal.getStrMeasure14());
+        res.setStrMeasure15(meal.getStrMeasure15());
+        res.setStrMeasure16(meal.getStrMeasure16());
+        res.setStrMeasure17(meal.getStrMeasure17());
+        res.setStrMeasure18(meal.getStrMeasure18());
+        res.setStrMeasure19(meal.getStrMeasure19());
+        res.setStrMeasure20(meal.getStrMeasure20());
         res.setDay(meal.getDay());
         return res;
     }
@@ -506,5 +529,11 @@ public class MealWithDay {
 
     public void setStrSource(String strSource) {
         this.strSource = strSource;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }
