@@ -8,21 +8,24 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.Reposatery.ReposateryInterface;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavouritePresenterImpl implements favouritePresemterInterface {
     FavouriteInterface favouriteInterface;
     ReposateryInterface repo;
     String TAG = "FavouritePresenterImpl";
+    CompositeDisposable compositeDisposable;
 
     public FavouritePresenterImpl(FavouriteInterface favouriteInterface, ReposateryInterface repo) {
         this.favouriteInterface = favouriteInterface;
         this.repo = repo;
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void getListOfFavMeal( ) {
-        repo.getFavMeals(repo.getFireBaseUser().getUid())
+        compositeDisposable.add(repo.getFavMeals(repo.getFireBaseUser().getUid())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(meals -> Log.d(TAG, "getListOfFavMeal before : "+meals.size()))
@@ -33,7 +36,7 @@ public class FavouritePresenterImpl implements favouritePresemterInterface {
                         , e -> {
                             Log.d(TAG, "getListOfFavMeal: "+e.getMessage());
                             favouriteInterface.showErrorMsg(e.getMessage());
-                        });
+                        }));
 
     }
 
@@ -44,15 +47,13 @@ public class FavouritePresenterImpl implements favouritePresemterInterface {
 
     @Override
     public void deleteFromFav(Meal meal) {
-        repo.deleteFavMeals(meal).subscribeOn(Schedulers.io())
+        compositeDisposable.add(repo.deleteFavMeals(meal).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     favouriteInterface.deletedSuccessfully(meal);
                     favouriteInterface.showSuccessMsg("Deleted Successfully");
 
-                }, e -> {
-                    favouriteInterface.showErrorMsg(e.getMessage());
-                }).isDisposed();
+                }, e -> favouriteInterface.showErrorMsg(e.getMessage())));
     }
 
 }
