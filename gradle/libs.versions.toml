@@ -24,6 +24,7 @@ rxandroid = "3.0.2"
 roomRxjava3 = "2.6.1"
 rxbinding = "4.0.0"
 rxjava3RetrofitAdapter = "3.0.0"
+firebaseFirestore = "25.1.0"
 
 
 [libraries]
@@ -51,6 +52,7 @@ rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroi
 room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRxjava3" }
 rxbinding = { module = "com.jakewharton.rxbinding4:rxbinding", version.ref = "rxbinding" }
 rxjava3-retrofit-adapter = { module = "com.github.akarnokd:rxjava3-retrofit-adapter", version.ref = "rxjava3RetrofitAdapter" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 
 [plugins]

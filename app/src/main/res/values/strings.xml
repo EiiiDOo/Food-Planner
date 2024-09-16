@@ -5,7 +5,7 @@
     <string name="title_favourite">Favourite</string>
     <string name="search">Search</string>
     <string name="hello_blank_fragment">H I</string>
-    <string name="login"><u>Login</u></string>
+    <string name="login">Login</string>
     <string name="signupwithemail">Sign Up With Email</string>
     <string name="oruse">ـــــــــــــــ          or use social sign up          ـــــــــــــــ</string>
     <string name="withgoogle">Continue With Google</string>
@@ -30,23 +30,31 @@
     <string name="youmightlike">You MIGHT Like</string>
     <string name="meal">Meal</string>
     <string name="Nomealhasbeenadeded">No Meals has Been Added</string>
-    <string name="DayOne">Day One</string>
-    <string name="daytwo">Day Two</string>
-    <string name="daythree">day Three</string>
-    <string name="dayfour">Day Four</string>
-    <string name="dayfive">Day Five</string>
-    <string name="daySix">Day Six</string>
-    <string name="DaySeven">Day Seven</string>
+    <string name="DayOne">Sunday</string>
+    <string name="daytwo">Monday</string>
+    <string name="daythree">Tuesday</string>
+    <string name="dayfour">Wednesday</string>
+    <string name="dayfive">Thursday</string>
+    <string name="daySix">Friday</string>
+    <string name="DaySeven">Saturday</string>
     <string name="logout">Log Out</string>
     <string name="ADD">Add</string>
     <string name="cancle">Cancle</string>
-    <string name="day1">Day1</string>
-    <string name="day2">Day2</string>
-    <string name="day3">Day3</string>
-    <string name="day4">Day4</string>
-    <string name="day5">Day5</string>
-    <string name="day6">Day6</string>
-    <string name="day7">Day7</string>
+    <string name="day1">Sunday</string>
+    <string name="day2">Monday</string>
+    <string name="day3">Tuesday</string>
+    <string name="day4">Wednesday</string>
+    <string name="day5">Thursday</string>
+    <string name="day6">Friday</string>
+    <string name="day7">Saturday</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="areyousure">Are You Sure? This Meal Will be Deleted.</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="logoutmessage">Are you sure you want to log out?</string>
+    <string name="loginmessage">Join To Us And Get Your Meal Plan</string>
+    <string name="loginfirst">Join To Us And Get Your Meal Plan</string>
+    <string name="nointernetmessage">No Connection Reconnect And Try Again</string>
     <!-- Strings used for fragments for navigation -->
 
 

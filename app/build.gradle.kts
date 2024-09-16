@@ -42,6 +42,10 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.firebase.auth)
+    implementation (platform("com.google.firebase:firebase-bom:32.2.0"))
+    // Google Sign-In
+    implementation ("com.google.android.gms:play-services-auth:20.6.0")
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
