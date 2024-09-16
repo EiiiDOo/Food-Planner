@@ -28,6 +28,8 @@ import com.example.foodplanner.Network.Base.RemoteDataSourceImpl;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Splash.Presenter.SplashPresenterImpl;
 
+import java.time.LocalDate;
+
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity implements SplashInterface {
     static long SPLASH_DISPLAY_LENGTH = 1000;
@@ -57,6 +59,16 @@ public class SplashActivity extends AppCompatActivity implements SplashInterface
         Log.d("SplashActivitySplashActivity", "onCreate: "+splashPresenter.getUserId());
         editor.putString("user", splashPresenter.getUserId());
         editor.commit();
+        sp = getSharedPreferences("date", MODE_PRIVATE);
+
+        if (sp.getString("today", null) == null) {
+        Log.d("splash", "onCreate: "+LocalDate.now().toString());
+            editor = sp.edit();
+            editor.putString("today", LocalDate.now().toString());
+            editor.commit();
+        }
+        Log.d("splash", "onCreate: "+LocalDate.now().toString());
+
 
         progressBar = findViewById(R.id.progressBar);
 
