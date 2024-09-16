@@ -9,6 +9,7 @@ import com.example.foodplanner.Model.MealWithDay;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -68,5 +69,15 @@ public class MealsfavLocalDataSourceImpl implements MealsFavLocalDataSource {
     @Override
     public Completable insertMealPlan(MealWithDay mealWithDay) {
         return dao.insertMealPlan(mealWithDay);
+    }
+
+    @Override
+    public Completable insertMealPlan(List<MealWithDay> mealWithDay) {
+        return dao.insertMealPlan(mealWithDay);
+    }
+
+    @Override
+    public Completable insertMealFav(List<Meal> mealList) {
+        return dao.insertMealFav(mealList);
     }
 }

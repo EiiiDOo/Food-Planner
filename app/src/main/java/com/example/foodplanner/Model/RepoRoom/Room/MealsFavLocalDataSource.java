@@ -3,6 +3,7 @@ package com.example.foodplanner.Model.RepoRoom.Room;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -22,4 +23,8 @@ public interface MealsFavLocalDataSource {
     Completable deleteMealPlan(MealWithDay mealWithDay);
 
     Completable insertMealPlan(MealWithDay mealWithDay);
+
+    Completable insertMealPlan(List<MealWithDay> mealWithDay);
+
+    Completable insertMealFav(List<Meal> mealList);
 }

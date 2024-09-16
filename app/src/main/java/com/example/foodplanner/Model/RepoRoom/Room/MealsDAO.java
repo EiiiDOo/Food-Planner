@@ -9,6 +9,7 @@ import androidx.room.Query;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MealWithDay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -25,6 +26,9 @@ public interface MealsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMealFav(Meal meal);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertMealFav(List<Meal> meal);
+
     @Delete
     Completable deleteMealFav(Meal meal);
 
@@ -40,4 +44,7 @@ public interface MealsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMealPlan(MealWithDay mealWithDay);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertMealPlan(List<MealWithDay> mealWithDay);
 }
