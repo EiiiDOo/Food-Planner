@@ -11,8 +11,10 @@ import com.example.foodplanner.Model.MealWithDay;
 import com.example.foodplanner.Model.MealsResponse;
 import com.example.foodplanner.Model.RepoRoom.Room.MealsFavLocalDataSource;
 import com.example.foodplanner.Network.Base.RemoteDataSource;
+import com.example.foodplanner.Profile.Presenter.ProfilePresenter;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -91,8 +93,13 @@ public class ReposateryImpl implements ReposateryInterface {
     }
 
     @Override
-    public void signOut(FireBaseCallback fireBaseCallback) {
-        fireBase.signOut(fireBaseCallback);
+    public void signOut() {
+        fireBase.signOut();
+    }
+
+    @Override
+    public void signInUsingGmailAccount(String idToken, FireBaseCallback fireBaseCallback) {
+        fireBase.signInUsingGmailAccount(idToken, fireBaseCallback);
     }
 
     @Override
@@ -109,6 +116,7 @@ public class ReposateryImpl implements ReposateryInterface {
     public Completable insertFavMeals(Meal meal) {
         return localDataSource.insertMealFav(meal);
     }
+
 
     @Override
     public Completable deleteFavMeals(Meal meal) {
@@ -132,6 +140,31 @@ public class ReposateryImpl implements ReposateryInterface {
     @Override
     public Completable insertMealPlan(MealWithDay mealWithDay) {
         return localDataSource.insertMealPlan(mealWithDay);
+    }
+
+    @Override
+    public void backupAllMeals(ArrayList<Meal> favouriteMeals, ArrayList<MealWithDay> mealPlan, FireBaseCallback fireBaseCallback) {
+        fireBase.backupFavouriteMeals(favouriteMeals,mealPlan, fireBaseCallback);
+    }
+
+    @Override
+    public void downloadFavouriteMeals(FireBaseCallback fireBaseCallback, ProfilePresenter profilePresenter) {
+        fireBase.downloadFavouriteMeals(fireBaseCallback,profilePresenter);
+    }
+
+    @Override
+    public void downloadPlanMeals(FireBaseCallback fireBaseCallback, ProfilePresenter profilePresenter) {
+        fireBase.downloadPlanMeals(fireBaseCallback,profilePresenter);
+    }
+
+    @Override
+    public Completable onSuccessDownloadFavouriteMeals(List<Meal> favouriteMeals) {
+        return localDataSource.insertMealFav(favouriteMeals);
+    }
+
+    @Override
+    public Completable onSuccessDownloadPlanMeals(List<MealWithDay> favouriteMeals) {
+        return localDataSource.insertMealPlan(favouriteMeals);
     }
 
 
