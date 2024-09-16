@@ -1,8 +1,11 @@
 package com.example.foodplanner.Model;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 
@@ -35,8 +38,8 @@ public class DaysDialog {
 
     private List<String> days;
 
-    public Flowable<String> getDays() {
-        return Flowable.fromIterable(days);
+    public Observable<String> getDays() {
+        return Observable.fromIterable(days);
     }
 
     public Button getAdd() {
@@ -62,14 +65,21 @@ public class DaysDialog {
         Add.setEnabled(false);
         cancel.setOnClickListener(v -> {
             alertDialog.dismiss();
+            days = new ArrayList<>();
+
+
         });
         day1.setOnClickListener(v -> {
+
             if (day1.isChecked()) {
                 days.add("1");
             } else {
                 days.remove("1");
             }
             Add.setEnabled(!days.isEmpty());
+            View vi = layoutInflater.inflate(R.layout.daysdialog, null);
+            alertDialog.setView(vi);
+            alertDialog.show();
         });
         day2.setOnClickListener(v -> {
             if (day2.isChecked()) {
@@ -119,7 +129,16 @@ public class DaysDialog {
             }
             Add.setEnabled(!days.isEmpty());
         });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
+        Window window = alertDialog.getWindow();
+        if (window != null) {
+            // Set a specific width (e.g., 80% of the screen width)
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(window.getAttributes());
+            layoutParams.width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.8); // 80% of screen width
+            window.setAttributes(layoutParams);
+        }
     }
 
 
