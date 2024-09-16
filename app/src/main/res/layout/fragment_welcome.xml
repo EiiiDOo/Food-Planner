@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".Authorization.AuthorizActivity">
 
+    <ProgressBar
+        android:id="@+id/progressbarWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="50dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#9E000000"
+        android:translationZ="30dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -25,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="61dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="40dp"
             android:backgroundTint="#FFFFFF"
             android:text="@string/skip"
@@ -58,20 +82,20 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:cornerRadius="15dp"
-            />
+            app:cornerRadius="15dp" />
 
         <ImageButton
             android:id="@+id/btnGoogleSign"
             android:layout_width="73dp"
             android:layout_height="73dp"
             android:layout_gravity="bottom|center"
-            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
             android:layout_marginBottom="100dp"
             android:backgroundTint="#00011407"
             android:elevation="20dp"
             app:cornerRadius="10dp"
-            app:srcCompat="@drawable/ic_google" />
+            app:srcCompat="@drawable/ic_google"
+            tools:ignore="ContentDescription" />
 
     </androidx.cardview.widget.CardView>
 
@@ -82,6 +106,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="310dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="28dp" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
@@ -91,14 +122,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_new" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="28dp" />
+        app:srcCompat="@drawable/back_new"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textView3"

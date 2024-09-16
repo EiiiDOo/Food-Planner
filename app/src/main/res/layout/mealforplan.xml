@@ -18,8 +18,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageDaily"
-            android:layout_width="172dp"
-            android:layout_height="156dp"
+            android:layout_width="110dp"
+            android:layout_height="92dp"
             android:adjustViewBounds="true"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
