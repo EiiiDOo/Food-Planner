@@ -100,6 +100,7 @@
             android:layout_height="350dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
@@ -161,6 +162,7 @@
             android:id="@+id/addTofav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/dialog_background"
             android:backgroundTint="@color/black"
             android:src="@drawable/favwhite"
             app:layout_constraintStart_toStartOf="@+id/guideline13"
@@ -171,6 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:background="@drawable/dialog_background"
             android:backgroundTint="@color/black"
             android:src="@drawable/addtocalend"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
