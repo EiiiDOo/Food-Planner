@@ -42,6 +42,7 @@ import com.google.gson.Gson;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
@@ -100,6 +101,7 @@ public class HomeFragment extends Fragment implements HomeView {
             homePresenter.fetchRandomMeal();
         } else
             showrandMeal(new Gson().fromJson(sp2.getString("random", null), Meal.class));
+
 
         btnToDailsfromrandomMeal.setOnClickListener(v -> {
             if (internetFlag) {

@@ -52,7 +52,6 @@ public class HomePresenterImpl implements MealsCallBack, CategoryCallback, HomeP
     @Override
     public void onSuccessCategory(List<Categories> categories) {
         homeView.showCategory(categories);
-        homeView.showCountry();
     }
 
     @Override
