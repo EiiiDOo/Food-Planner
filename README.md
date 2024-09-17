@@ -49,72 +49,68 @@ Application Features:
 <hr>
 <h2>- Splash Screen & Lottie Animation </h2>
 <p align="center">
+        
+<img src= "https://github.com/user-attachments/assets/3bf47f3f-7dab-4ef6-8c7f-25f9331c3d83" width = "20%">
   
 </p>
 
 <h2>- Validate Login and Registration</h2>
 
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222992781-d6d3af94-3270-4e3f-acf2-f61e9a2c4e4f.jpg" width="40%">
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222992783-142d5837-593f-484d-b430-b3d7969ab194.jpg" width="40%"> -->
+        <img src = "https://github.com/user-attachments/assets/e47b4bea-5131-43ef-a5eb-ff054b8df3a0" width = "25%">
+        <img src= "https://github.com/user-attachments/assets/641c2bb9-2281-43f8-9792-3737b5597f64" width = "25%">
+
+
 </p>
 
-<h2>- Google Login and Logout</h2>
+<h2>- Google Login</h2>
 <p align="center">
-<!--   <img alt="Light" src="https://user-images.githubusercontent.com/51149273/222994762-ff8cfb5d-2795-4895-94b6-58119f1529c0.jpg" width="40%">
+<img src= "https://github.com/user-attachments/assets/25b1aed0-4e59-4c17-8a89-2b925633ce20" width = "25%">
   &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Light" src="https://user-images.githubusercontent.com/51149273/222994766-32414f8c-d6d0-42a2-8a2d-5095470e43b7.jpg" width="40%"> -->
+
 </p>
 
 <h2>- Home Screen (Daily Inspiration)</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993510-b835a801-6edd-4a8f-894e-a381bedaac71.jpg" width="45%"> -->
+<img src= "https://github.com/user-attachments/assets/629c7212-9cf9-46ec-b6af-aa74bf467c14" width = "20%">
+
 </p>
 
 <h2> - Search by Area, Category or Ingredient</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222995526-da2ab523-5e85-4962-b12e-fb1ffb753f70.jpg" width="20%">
-  &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222995523-9807120d-922b-4a32-949f-3ee214f7b712.jpg" width="20%">
-  &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993547-2e1cf25a-202e-478d-ac9e-665fd0ed3137.jpg" width="20%">
-  &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993542-7c2b603d-e98c-4eb7-8812-4186142f04ec.jpg" width="20%"> -->
+<img src= "https://github.com/user-attachments/assets/641c2bb9-2281-43f8-9792-3737b5597f64" width = "20%">
 </p>
 
 <h2> - Search by Specific Area, Category or Ingredient</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993601-e3fea9f9-d197-4130-9c4f-f7b8b95d741b.jpg" width="30%">
+
+<img src="https://github.com/user-attachments/assets/61aed560-5fcf-4d25-81fe-7462a3eb64d5" width="20%">
   &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993596-0c1c81d4-acc2-445e-928c-b469db99f6e5.jpg" width="30%">
-  &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993599-445ddc28-8b3a-4f33-aca4-0575e4d42039.jpg" width="30%"> -->
 </p>
 
 <h2>- Use the Search Bar to Filter the Results</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993611-2fa3cc02-702f-4680-9734-1e40daac8133.jpg" width="45%"> -->
+<img src= "https://github.com/user-attachments/assets/b77d6aa7-1d0c-49ea-98e8-4f82846f72e9" width = "20%">
+<img src= "https://github.com/user-attachments/assets/a25223c0-7ef6-4fd3-adef-717ebc4169ef" width = "20%">
+<img src= "https://github.com/user-attachments/assets/2cc5392b-0681-48a5-af84-dcd0a5cd5679" width = "20%">
+<img src= "https://github.com/user-attachments/assets/3de2d2fd-fc52-47cd-a271-246374a56bf4" width = "20%">        
 </p>
+
 
 <h2>- Meal Details</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993677-5dceaba4-3870-4e7a-a913-02ac04f4b19d.jpg" width="40%">
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993679-9de6d50c-b80b-4f5b-9c60-594965f67dc8.jpg" width="40%"> -->
+<img src= "https://github.com/user-attachments/assets/b5a868a6-3310-4094-9ffc-66c96cb28f8a" width = "20%">
+        <img src= "https://github.com/user-attachments/assets/e96a1a38-8eb5-43c0-a087-9f67b280a442" width = "25%">
 </p>
 
-<h2>- Favorite Dishes</h2>
+<h2>- Favorite Meal</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993741-57151882-84b4-44b8-91d5-c63066a370cb.jpg" width="45%"> -->
+        <img src= "https://github.com/user-attachments/assets/bc434b1e-06f4-46f7-852f-9c8dbc057824" width = "20%">
+        <img src= "https://github.com/user-attachments/assets/8a93bdda-34c1-498b-8b89-a5f845b48b2f" width = "20%">
 </p>
 
 <h2> - Add to Calender</h2>
 <p align="center">
-<!--   <img src="https://user-images.githubusercontent.com/51149273/222993674-d163aa96-7c39-461f-a9fa-3aff246ca003.jpg" width="30%">
-  &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993675-7cf225e3-5565-49aa-9084-e78e3be5dbd2.jpg" width="30%">
-  &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/51149273/222993676-1ea0cfa4-4b57-48b5-8eec-3dbfd0201bb2.jpg" width="30%"> -->
+<img src= "https://github.com/user-attachments/assets/92f0efe6-06e8-41dd-9adf-cdd505ac6a00" width = "20%">
 </p>
 <hr>
