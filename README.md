@@ -35,9 +35,11 @@ Application Features:
 <hr>
 <h2>Youtube Video:</h2>
 <p align="center">
-<!--     <a href="https://youtu.be/FbP2BDXYrOs" target="_blank">
-        <img src="https://user-images.githubusercontent.com/51149273/222991758-fbc2f267-ea66-4327-84df-39ebec7ae617.png" alt="Watch the video" border="10" />
-    </a>  -->
+        https://youtu.be/jGdmP0_chIY?si=yDfq5m_tKl8cKH8A
+    <a href="https://youtu.be/jGdmP0_chIY?si=yDfq5m_tKl8cKH8A" target="_blank">
+        <img src="https://github.com/user-attachments/assets/679b4274-956e-49c5-932c-93aaf055f0f2" alt="Watch the video" border="10" />
+
+    </a> 
 </p>
 
 <hr>
