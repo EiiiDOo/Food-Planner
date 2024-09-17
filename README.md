@@ -1,7 +1,7 @@
 # My Food Planner
 
 --------------
-"My Food" is a native Android mobile application that uses Java to help users plan their weekly meals. 
+My Food" is a native Android mobile application that uses Java to help users plan their weekly meals. 
 <br>It enables users to view a variety of dishes from around the world and provides the ability to view categories, suggest meals, and search for specific meals using various options.
 
 Application Features:
