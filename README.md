@@ -76,13 +76,6 @@ Application Features:
 <p align="center">
 <img src= "https://github.com/user-attachments/assets/629c7212-9cf9-46ec-b6af-aa74bf467c14" width = "20%">
 
-</p>
-
-<h2> - Search by Area, Category or Ingredient</h2>
-<p align="center">
-<img src= "https://github.com/user-attachments/assets/641c2bb9-2281-43f8-9792-3737b5597f64" width = "20%">
-</p>
-
 <h2> - Search by Specific Area, Category or Ingredient</h2>
 <p align="center">
 
